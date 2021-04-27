@@ -17,7 +17,8 @@ namespace EFCoreRelations.Data
 
         public DbSet<RentPostPhoto> RentPostPhotos { get; set; }
 
-
+        
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

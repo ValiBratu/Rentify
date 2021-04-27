@@ -34,7 +34,7 @@ namespace RentingApi.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<RentPost>> GetBussinessPhoto(int id)
+        public async Task<ActionResult<RentPost>> GetRentPost(int id)
         {
             var rentPosts = await _context.RentPosts.FindAsync(id);
 
@@ -47,7 +47,7 @@ namespace RentingApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBussiness(int id, [FromBody] RentPost rentPost)
+        public async Task<IActionResult> PutRentPost(int id, [FromBody] RentPost rentPost)
         {
             if (!_context.RentPosts.Any(b => b.Id == id))
             {
@@ -77,7 +77,7 @@ namespace RentingApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<RentPost>> PostBussiness(RentPost rentPost)
+        public async Task<ActionResult<RentPost>> PostRentPost(RentPost rentPost)
         {
             _context.RentPosts.Add(rentPost);
             await _context.SaveChangesAsync();
@@ -88,7 +88,7 @@ namespace RentingApi.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<RentPost>> DeleteBussiness(int id)
+        public async Task<ActionResult<RentPost>> DeleteRentPost(int id)
         {
             var post = await _context.RentPosts.FindAsync(id);
             if (post == null)
