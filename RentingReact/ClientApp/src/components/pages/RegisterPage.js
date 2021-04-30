@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import { Link } from 'react-router-dom';
-import Login from './LoginPage';
+
 
 
 function Register() {
@@ -137,7 +137,7 @@ function Register() {
             </div> {/* row.//*/}
             {/*container end.//*/}
             <br></br>
-            <br></br>
+  
      </>
 
     );

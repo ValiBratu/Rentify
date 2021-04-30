@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Route } from 'react-router';
+import { Route, Switch } from 'react-router';
 import { Layout } from './components/Layout';
 import Home from './components/pages/Home';
 import Login from './components/pages/LoginPage';
+import NotFound from './components/pages/NotFoundPage';
 import Register from './components/pages/RegisterPage';
 import { UserContext } from './components/utils/AuthContext';
 
@@ -49,14 +50,16 @@ function App() {
     return (
   <>
      <UserContext.Provider value={{ user, login, logout }}>
-         <Layout>
-                
-              <Route exact path='/' component={Home} />
+            <Layout>
+                <Switch> 
+                  <Route exact path='/' component={Home} />
 
-              <Route exact path='/register' component={Register} />
+                  <Route exact path='/register' component={Register} />
 
-              <Route exact path='/login' component={Login}/>
+                  <Route exact path='/login' component={Login} />
 
+                 <Route path="*" component={NotFound} />
+             </Switch>
         </Layout>
 
      </UserContext.Provider>
