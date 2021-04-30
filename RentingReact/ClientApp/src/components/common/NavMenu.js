@@ -3,18 +3,25 @@ import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLi
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 import { useGlobalUser } from '../utils/AuthContext';
-import { Button } from 'bootstrap';
+import logo from '../../images/logo.png';
 
 function NavMenu() {
 
     const { user, logout } = useGlobalUser();
-  
+
+    const logoStyle = {
+        height:"37px",
+        marginLeft: "-100px"
+    };
 
     return (
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
-          <Container>
-            <NavbarBrand tag={Link} to="/">Rentify</NavbarBrand>
+                <Container>
+                    <Link to="/">
+                        <img src={logo} style={logoStyle}></img>
+                        <h4 style={{ color: "black", marginLeft: "-50px",marginTop: "-35px" }}>Rentify</h4>
+                    </Link>
             <NavbarToggler  className="mr-2" />
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" navbar>
                 {user.Auth ? (
