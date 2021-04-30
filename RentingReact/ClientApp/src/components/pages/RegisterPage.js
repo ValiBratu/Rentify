@@ -1,9 +1,6 @@
 ﻿import React from 'react';
 import { Link } from 'react-router-dom';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
+import Login from './LoginPage';
 
 
 function Register() {
@@ -29,12 +26,25 @@ function Register() {
                 sentData)
         })
             .then(response => {
-                console.log(response)
+                console.log(response);
+                validateStatus(response.status);
             })
 
             .catch(error => {
                 console.log(error)
             })
+
+    }
+
+    const validateStatus = (status) => {
+
+        if (status === 200) {
+            window.location = '/login';
+            return;
+        }
+
+        const warning = document.getElementById("warning");
+        warning.textContent="Email is already in use or Password is invalid!"
 
     }
 
@@ -58,6 +68,8 @@ function Register() {
         callAPI(username, email, phone, password);
 
     }
+
+  
 
     const verifyPass = (firstPass,secondPass) => {
 
@@ -104,12 +116,13 @@ function Register() {
 
                                 <div className="form-group">
                                     <label>Password</label>
-                                    <input className="form-control" type="password" name="password" id="password" />
+                                    <input className="form-control" type="password" name="password" id="password" placeholder="Password" />
+                                    <small className="text-muted">Must contain at least: one small letter, one capital letter,one number,one symbol!</small>
                                 </div> {/* form-group end.// */}
 
                                 <div className="form-group">
                                     <label>Confirm Password</label>
-                                    <input className="form-control" type="password" name="confirmPass" id="confirmPass" />
+                                    <input className="form-control" type="password" name="confirmPass" id="confirmPass" placeholder="Confirm Password" />
                                 </div> {/* form-group end.// */}
                                 <p id="warning" style={{ color: 'red' }}></p>
                                 <div className="form-group">
@@ -118,7 +131,7 @@ function Register() {
                                 <small className="text-muted">By clicking the 'Sign Up' button, you confirm that you accept our <br /> Terms of use and Privacy Policy.</small>
                             </form>
                         </article> {/* card-body end .// */}
-                        <div className="border-top card-body text-center">Have an account? <Link to="/" className="btn btn-outline-primary">Log In</Link></div>
+                        <div className="border-top card-body text-center">Have an account? <Link to="/login" className="btn btn-outline-primary">Log In</Link></div>
                     </div> {/* card.// */}
                 </div> {/* col.//*/}
             </div> {/* row.//*/}
