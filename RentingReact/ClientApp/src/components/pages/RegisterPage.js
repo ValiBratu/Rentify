@@ -1,12 +1,17 @@
-﻿import React from 'react';
-import { Link } from 'react-router-dom';
-
+﻿import React, { useState } from 'react';
+import { Link, useHistory  } from 'react-router-dom';
+import Loading from '../utils/Loading';
+import swal2 from "sweetalert2";
 
 
 function Register() {
 
 
     const registerAPI = "https://localhost:44364/api/Authenticate/register";
+
+    const [loading, setLoading] = useState();
+
+    const history = useHistory();
 
 
     const callAPI = (username,email,phone,password) => {
@@ -28,6 +33,7 @@ function Register() {
             .then(response => {
                 console.log(response);
                 validateStatus(response.status);
+
             })
 
             .catch(error => {
@@ -39,10 +45,19 @@ function Register() {
     const validateStatus = (status) => {
 
         if (status === 200) {
-            window.location = '/login';
+           
+            swal2
+                .fire({
+                    title: "Good job!",
+                    text: "Your user was registered!",
+                    icon: "success",
+                }).then(function () {
+                    setLoading(null);
+                    history.push("/login");
+                });
             return;
         }
-
+        setLoading(null);
         const warning = document.getElementById("warning");
         warning.textContent="Email is already in use or Password is invalid!"
 
@@ -64,6 +79,16 @@ function Register() {
             return;
         }
         warning.textContent = null;
+
+        const load = (
+            <>
+                <br></br>
+                <Loading></Loading>
+                <br></br>
+            </>
+        );
+        setLoading(load);
+
 
         callAPI(username, email, phone, password);
 
@@ -96,13 +121,13 @@ function Register() {
                                     <label>Username</label>
                                     <input type="text" className="form-control" placeholder="Username" name="username" id="username" />
                                     
-                                </div> {/* form-group end.// */}
+                                </div> 
 
 
                                 <div className="form-group">
                                     <label>Email address</label>
                                     <input type="email" className="form-control" placeholder="Email" name="email" id="email" />
-                                </div> {/* form-group end.// */}
+                                </div> 
 
 
                                 <div className="form-group">
@@ -112,30 +137,36 @@ function Register() {
                                         width: "500px",
                                         height: "38px"
                                     }} pattern="[0-9]+" />
-                                </div> {/* form-group end.// */}
+                                </div> 
 
                                 <div className="form-group">
                                     <label>Password</label>
                                     <input className="form-control" type="password" name="password" id="password" placeholder="Password" />
                                     <small className="text-muted">Must contain at least: one small letter, one capital letter,one number,one symbol!</small>
-                                </div> {/* form-group end.// */}
+                                </div> 
 
                                 <div className="form-group">
                                     <label>Confirm Password</label>
                                     <input className="form-control" type="password" name="confirmPass" id="confirmPass" placeholder="Confirm Password" />
-                                </div> {/* form-group end.// */}
+                                </div> 
                                 <p id="warning" style={{ color: 'red' }}></p>
+
+                                <div style={{ marginLeft: "220px" }}>
+                                    {loading}
+                                    
+                                </div>
+
                                 <div className="form-group">
                                     <button type="button" className="btn btn-success btn-block" onClick={getInputs}> Register</button>
-                                </div> {/* form-group// */}
+                                </div> 
                                 <small className="text-muted">By clicking the 'Sign Up' button, you confirm that you accept our <br /> Terms of use and Privacy Policy.</small>
                             </form>
-                        </article> {/* card-body end .// */}
+                        </article> 
                         <div className="border-top card-body text-center">Have an account? <Link to="/login" className="btn btn-outline-primary">Log In</Link></div>
-                    </div> {/* card.// */}
-                </div> {/* col.//*/}
-            </div> {/* row.//*/}
-            {/*container end.//*/}
+                    </div> 
+                </div> 
+            </div> 
+            
             <br></br>
   
      </>

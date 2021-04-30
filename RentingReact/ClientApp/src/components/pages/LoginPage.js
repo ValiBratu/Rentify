@@ -1,7 +1,8 @@
-﻿import React from 'react';
-import { Link } from 'react-router-dom';
+﻿import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { useGlobalUser } from '../utils/AuthContext';
-
+import Loading from '../utils/Loading';
+import swal2 from "sweetalert2";
 
 function Login() {
 
@@ -10,8 +11,12 @@ function Login() {
 
     const { user, login } = useGlobalUser();
 
-    const callAPI = ( email, password) => {
+    const [ loading, setLoading ] = useState();
 
+    const history = useHistory();
+
+    const callAPI = ( email, password) => {
+        
         let sentData = {
             Email: email,
             Password: password
@@ -26,7 +31,7 @@ function Login() {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data.token);
+                console.log(data);
 
                 if (data.token) {
                     parseJwt(data.token);
@@ -35,14 +40,16 @@ function Login() {
                 else {
                     const warning = document.getElementById("warning");
                     warning.textContent = "Email or Password are not valid!";
+                   
                 }
                 
             })
+            
 
             .catch(error => {
                 console.log(error)
             })
-
+       
     }
 
 
@@ -55,14 +62,23 @@ function Login() {
         
         const password = document.getElementById("password").value;
 
-        
+        const load = (
+            <>
+                <br></br>
+                <Loading></Loading>
+                <br></br>
+            </>
+        );
+        setLoading(load);
 
         console.log( email + " " + password );
         
 
         callAPI(email, password);
+        
        
 
+        
     }
 
     function parseJwt(token) {
@@ -81,10 +97,23 @@ function Login() {
             Email: JSON.parse(jsonPayload)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"],
             Role: JSON.parse(jsonPayload)["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
         };
-
         login(loginData);
-
+        swal2
+            .fire({
+                title: "Good job!",
+                text: "Your user was logged in",
+                icon: "success",
+            }).then(function () {
+                setLoading(null);
+                history.push("/");
+            });
+       
     };
+
+                                        
+
+
+
     return (
         <>
             <div className="row justify-content-center">
@@ -110,6 +139,11 @@ function Login() {
                                 </div> 
 
                                 <p id="warning" style={{ color: 'red' }}></p>
+
+                                <div id="loading" style={{ marginLeft: "220px" }}>
+                                    {loading}
+                                 </div>
+
                                 <div className="form-group">
                                     <button type="button" className="btn btn-success btn-block" onClick={getInputs}> Login</button>
                                 </div>
