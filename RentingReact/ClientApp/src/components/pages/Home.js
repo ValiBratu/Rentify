@@ -11,9 +11,9 @@ function Home() {
 
 
     return (
-        <>  <div className="container">
+        <>  <div className="container" >
 
-            <div className="jumbotron" style={{  }}>
+            <div className="jumbotron" style={{ backgroundColor:"#d5dfe7" }} >
                
                 <h1 className="display-3">Welcome to Rentify!</h1>
                 <p className="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
@@ -41,7 +41,7 @@ function Home() {
                     ) }
 
 
-
+               
             </div>
             <div className="row marketing">
                 <div className="col-lg-6">

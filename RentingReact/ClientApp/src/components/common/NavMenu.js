@@ -1,5 +1,5 @@
 import React from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import { Collapse, Container, Navbar, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 import { useGlobalUser } from '../utils/AuthContext';
@@ -19,7 +19,7 @@ function NavMenu() {
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
                 <Container>
                     <Link to="/">
-                        <img src={logo} style={logoStyle}></img>
+                        <img src={logo} style={logoStyle} alt='logo'></img>
                         <h4 style={{ color: "black", marginLeft: "-50px",marginTop: "-35px" }}>Rentify</h4>
                     </Link>
             <NavbarToggler  className="mr-2" />

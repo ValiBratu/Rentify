@@ -31,7 +31,7 @@ function Register() {
                 sentData)
         })
             .then(response => {
-                console.log(response);
+                
                 validateStatus(response.status);
 
             })
@@ -49,7 +49,7 @@ function Register() {
             swal2
                 .fire({
                     title: "Good job!",
-                    text: "Your user was registered!",
+                    text: "Your account has been created!",
                     icon: "success",
                 }).then(function () {
                     setLoading(null);
@@ -73,7 +73,6 @@ function Register() {
         const confirmPassword = document.getElementById("confirmPass").value;
         const warning = document.getElementById("warning");
 
-        console.log(username + " " + email + " " + phone + " " + password + " " + confirmPassword);
         if (!verifyPass(password, confirmPassword)) {
             warning.textContent = "Password and Confrim Password must be the same!"
             return;

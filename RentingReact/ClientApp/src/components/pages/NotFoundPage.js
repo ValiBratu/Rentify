@@ -15,7 +15,7 @@ function NotFound() {
         <div className="container">
             <div className="body-style">
                     <div style={{ width: '40%' }}>
-                        <img src={ image} style={{ float: 'right' }} />
+                        <img src={image} style={{ float: 'right' }} alt='notFoundImage'/>
                 </div>
                 <div style={{ width: '45%', float: 'left', marginLeft: '600px',marginTop:"-240px" }}>
                     <h1 style={{ fontWeight: 'bold', fontSize: '34px' }}>Page Not Found</h1>

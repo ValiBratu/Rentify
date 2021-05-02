@@ -1,5 +1,5 @@
 ﻿import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import {  useHistory } from 'react-router-dom';
 import { useGlobalUser } from '../utils/AuthContext';
 import Loading from '../utils/Loading';
 import swal2 from "sweetalert2";
@@ -9,7 +9,7 @@ function Login() {
 
     const LoginAPI = "https://localhost:44364/api/Authenticate/login";
 
-    const { user, login } = useGlobalUser();
+    const {  login } = useGlobalUser();
 
     const [ loading, setLoading ] = useState();
 
@@ -31,7 +31,7 @@ function Login() {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                
 
                 if (data.token) {
                     parseJwt(data.token);
@@ -42,7 +42,7 @@ function Login() {
                     warning.textContent = "Email or Password are not valid!";
                    
                 }
-                
+                setLoading(null);
             })
             
 
@@ -71,7 +71,7 @@ function Login() {
         );
         setLoading(load);
 
-        console.log( email + " " + password );
+        
         
 
         callAPI(email, password);
@@ -89,7 +89,7 @@ function Login() {
         }).join(''));
 
 
-        console.log(JSON.parse(jsonPayload));
+        
 
         const loginData = {
             Id: JSON.parse(jsonPayload).id,
@@ -104,7 +104,7 @@ function Login() {
                 text: "Your user was logged in",
                 icon: "success",
             }).then(function () {
-                setLoading(null);
+                
                 history.push("/");
             });
        
