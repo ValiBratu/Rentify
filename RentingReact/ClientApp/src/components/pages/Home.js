@@ -22,7 +22,7 @@ function Home() {
                     <>
                         <br></br>
                         <Link to="/asd">
-                            <button type="button" style={{ width: "200px" }} className="btn btn-success">See the newest Offers </button>
+                            <button type="button" style={{ width: "200px"  }} className="btn btn-success">See the newest Offers </button>
                         </Link>
                
                         </>

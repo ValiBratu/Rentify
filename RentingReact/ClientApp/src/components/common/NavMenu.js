@@ -27,9 +27,9 @@ function NavMenu() {
                 {user.Auth ? (
                 <ul className="navbar-nav flex-grow">
 
-                    <NavItem>
-                        <NavLink tag={Link} className="text-dark" to="/profile">Profile</NavLink>
-                    </NavItem>
+                <NavItem>
+                    <NavLink tag={Link} className="text-dark" to={"/profile/"+user.Id }>Profile</NavLink>
+                </NavItem>
 
                 <NavItem>
                     <NavLink tag={Link} className="text-dark" to="/" onClick={logout} >Logout</NavLink>

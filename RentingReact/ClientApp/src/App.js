@@ -5,6 +5,7 @@ import Home from './components/pages/Home';
 import Login from './components/pages/LoginPage';
 import NotFound from './components/pages/NotFoundPage';
 import Register from './components/pages/RegisterPage';
+import UserProfile from './components/pages/profile/UserProfile';
 import { UserContext } from './components/utils/AuthContext';
 
 
@@ -57,6 +58,8 @@ function App() {
                   <Route exact path='/register' component={Register} />
 
                   <Route exact path='/login' component={Login} />
+
+                  <Route exact path='/profile/:id' component={UserProfile}/>
 
                  <Route path="*" component={NotFound} />
              </Switch>
