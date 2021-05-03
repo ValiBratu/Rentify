@@ -14,7 +14,7 @@ function ProfileHeader(props) {
         <div className="card-title mb-4">
             <div className="d-flex justify-content-start">
                 <div className="image-container">
-                    <img src="" id="imgProfile" style={{ width: '150px', height: '150px' }} className="img-thumbnail" />
+                    <img src="" id="imgProfile" style={{ width: '150px', height: '150px' }} className="img-thumbnail" alt="profileImg"/>
                     <div className="middle">
                         <label htmlFor="btnChangePicture" style={{ marginTop: "15px" }}>
                             <input type="button" className="btn btn-secondary" id="btnChangePicture" defaultValue="Edit Profile" />

@@ -45,39 +45,52 @@ namespace RentingApi.Controllers
             return user;
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutUser(int id, [FromBody] RegisterModel User)
-        //{
-        //    if (!_context.Users.Any(b => b.Id == id))
-        //    {
-        //        return BadRequest();
-        //    }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutUser(string id, [FromBody] RegisterModel User)
+        {
+            if (!_context.Users.Any(b => b.Id == id))
+            {
+                return BadRequest();
+            }
 
-        //    try
-        //    {
-        //        var currentPost = _context.RentPosts.Single(b => b.Id == id);
+            try
+            {
+                var currentPost = _context.Users.Single(b => b.Id == id);
 
-        //        currentPost.Title = rentPost.Title;
-        //        currentPost.Description = rentPost.Description;
-        //        currentPost.Location = rentPost.Location;
-        //        currentPost.Price = rentPost.Price;
+                currentPost.UserName = User.Username;
+                currentPost.Email = User.Email;
+                currentPost.PhoneNumber = User.PhoneNumber;
 
-        //        await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
-        //    }
-        //    catch (Exception)
-        //    {
+            }
+            catch (Exception)
+            {
 
-        //        throw;
+                throw;
 
-        //    }
+            }
 
-        //    return NoContent();
-        //}
-
+            return NoContent();
+        }
 
 
+        [HttpGet("{id}/rent-posts")]
+        public async Task<ActionResult<IEnumerable<RentPost>>> GetUserPosts(string id)
+        {
 
+            var posts = await _context.RentPosts.ToListAsync();
+
+            
+
+            var userPosts = from post in posts
+                            where post.UserId.Equals(id)
+                            select post;
+
+            return userPosts.ToList();
+
+
+        }
 
 
 

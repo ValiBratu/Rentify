@@ -1,9 +1,23 @@
-﻿import React from 'react';
+﻿import React, { useEffect } from 'react';
+import { useState } from 'react';
 
 function UserPosts(props) {
 
 
+    const [posts, setPosts] = useState([]);
 
+    const userPostsAPI = "https://localhost:44364/api/User/";
+
+    useEffect(() => {
+
+        fetch(userPostsAPI + props.id+"/rent-posts")
+            .then(response => response.json())
+            .then(data => {
+               
+                setPosts(data);
+            })
+            .catch(err=>console.log(err))
+    },[props]);
 
 
     return (
@@ -12,12 +26,7 @@ function UserPosts(props) {
             <div className="tab-content ml-1" id="myTabContent">
                 <div id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
                     <div className="row">
-                        <div className="col-sm-3 col-md-2 col-5">
-                            <label style={{ fontWeight: 'bold' }}>Name</label>
-                        </div>
-                        <div className="col-md-8 col-6">
-                            {props.userData.userName}
-                        </div>
+     
                     </div>
                     <hr />
 

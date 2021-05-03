@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect  } from 'react';
 import ProfileBodyHeader from './ProfileBodyHeader';
 import ProfileHeader from './ProfileHeader';
-import UserProfileData from './UserProfileData';
+
 
 
 function UserProfile(props) {
