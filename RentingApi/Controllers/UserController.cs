@@ -31,9 +31,8 @@ namespace RentingApi.Controllers
             return await _context.Users.ToListAsync();
         }
 
-
         [HttpGet("{id}")]
-        public async Task<ActionResult<ApplicationUser>> GetUser(string id)
+        public async Task<ActionResult<Object>> GetUser(string id)
         {
             var user = await _context.Users.FindAsync(id);
 
@@ -42,7 +41,34 @@ namespace RentingApi.Controllers
                 return NotFound();
             }
 
-            return user;
+            var AllPhotos = _context.UserPhotos;
+
+            var userPhotos = from photo in AllPhotos
+                             where photo.UserId == id
+                       select photo.Photo;
+
+            string userPhoto = "";
+
+            if (userPhotos.Count() == 1)
+            {
+                userPhoto = userPhotos.First();
+            }
+
+            var userPosts = from post in _context.RentPosts
+                            where post.UserId == id
+                            select post;
+
+            var query = new {
+                Id = user.Id,
+                Name = user.UserName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Photo = userPhoto,
+                NumberOfPosts=userPosts.Count()
+
+            };
+
+            return query;
         }
 
         [HttpPut("{id}")]

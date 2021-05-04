@@ -17,6 +17,9 @@ namespace EFCoreRelations.Data
 
         public DbSet<RentPostPhoto> RentPostPhotos { get; set; }
 
+        public DbSet<City> Cities { get; set; }
+
+        public DbSet<UserPhoto> UserPhotos { get; set; }
         
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)

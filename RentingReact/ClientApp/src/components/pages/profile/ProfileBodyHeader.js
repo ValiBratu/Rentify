@@ -12,7 +12,7 @@ function ProfileBodyHeader(props) {
     useEffect(() => {
 
         setChoosenComponent(<UserProfileData userData={props.userData}></UserProfileData>);
-
+       
     },[props]);
 
 

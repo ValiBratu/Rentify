@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCoreRelations.Data.Migrations
 {
     [DbContext(typeof(RentDBContext))]
-    [Migration("20210427105943_Initial-Create")]
-    partial class InitialCreate
+    [Migration("20210504113941_UserId_Column_in_UserPhotos")]
+    partial class UserId_Column_in_UserPhotos
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -86,12 +86,31 @@ namespace EFCoreRelations.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("EFCoreRelations.Data.Models.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cities");
+                });
+
             modelBuilder.Entity("EFCoreRelations.Data.Models.RentPost", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -113,6 +132,8 @@ namespace EFCoreRelations.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId");
 
                     b.HasIndex("UserId");
 
@@ -137,6 +158,27 @@ namespace EFCoreRelations.Data.Migrations
                     b.HasIndex("RentPostId");
 
                     b.ToTable("RentPostPhotos");
+                });
+
+            modelBuilder.Entity("EFCoreRelations.Data.Models.UserPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserPhotos");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -272,11 +314,19 @@ namespace EFCoreRelations.Data.Migrations
 
             modelBuilder.Entity("EFCoreRelations.Data.Models.RentPost", b =>
                 {
+                    b.HasOne("EFCoreRelations.Data.Models.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EFCoreRelations.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("City");
 
                     b.Navigation("User");
                 });
@@ -290,6 +340,17 @@ namespace EFCoreRelations.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("RentPost");
+                });
+
+            modelBuilder.Entity("EFCoreRelations.Data.Models.UserPhoto", b =>
+                {
+                    b.HasOne("EFCoreRelations.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

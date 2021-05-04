@@ -16,7 +16,7 @@ function UserProfileData(props) {
                                     <label style={{ fontWeight: 'bold' }}>Name</label>
                                 </div>
                                 <div className="col-md-8 col-6">
-                                    {props.userData.userName }
+                                    {props.userData.name }
                                     </div>
                             </div>
                             <hr />

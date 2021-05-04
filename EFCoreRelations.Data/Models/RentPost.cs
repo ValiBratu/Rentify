@@ -29,6 +29,12 @@ namespace EFCoreRelations.Data.Models
         public string Location { get; set; }
 
         [Required]
+        [ForeignKey("CityId")]
+        public int CityId { get; set; }
+        public City City { get; set; }
+
+
+        [Required]
         [Column(TypeName = "decimal(18,2)")]
         public Decimal Price { get; set; }
 
