@@ -13,7 +13,7 @@ function ProfileHeader(props) {
         <div className="card-title mb-4">
             <div className="d-flex justify-content-start">
                     <div className="image-container">
-                        {props.userData.photo != "" ? (
+                        {props.userData.photo !== "" ? (
 
                             <img src="" id="imgProfile" style={{ width: '150px', height: '150px' }} className="img-thumbnail" alt="profileImg" />
 

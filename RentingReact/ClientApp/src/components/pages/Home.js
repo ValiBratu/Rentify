@@ -21,7 +21,7 @@ function Home() {
                 {user.Auth ? (
                     <>
                         <br></br>
-                        <Link to="/asd">
+                        <Link to="/posts">
                             <button type="button" style={{ width: "200px"  }} className="btn btn-success">See the newest Offers </button>
                         </Link>
                
