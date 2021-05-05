@@ -1,10 +1,20 @@
-﻿import React from 'react';
+﻿import React, { useEffect } from 'react';
+import { useState } from 'react';
 import image from '../../../images/NoUserImage.jpg';
+import { useGlobalUser } from '../../utils/AuthContext';
 
 function ProfileHeader(props) {
 
+    const { user } = useGlobalUser();
 
-    
+    const [userId, setUserId] = useState();
+
+    useEffect(() => {
+
+        setUserId(props.userId);
+        
+    }, [props]);
+
 
     return (
         <>
@@ -20,13 +30,18 @@ function ProfileHeader(props) {
                         ): (
                     
                                 <img src={ image} id = "imgProfile" style = {{ width: '150px', height: '150px' }} className="img-thumbnail" alt="profileImg"/>
-                        )}
-                    
-                    <div className="middle">
-                        <label htmlFor="btnChangePicture" style={{ marginTop: "15px" }}>
-                            <input type="button" className="btn btn-secondary" id="btnChangePicture" defaultValue="Edit Profile" />
-                        </label>
-                    </div>
+                            )}
+                        {user.Id === userId ? (
+                            <div className="middle">
+                                <label htmlFor="btnChangePicture" style={{ marginTop: "15px" }}>
+                                    <input type="button" className="btn btn-secondary" id="btnChangePicture" defaultValue="Edit Profile" />
+                                </label>
+                            </div>
+
+                        ) : (
+                                <></>
+                                )}
+
                 </div>
                 <div className="userData ml-3">
                         <h2 className="d-block" style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{props.userData.name}</h2>

@@ -1,10 +1,10 @@
 ﻿import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import Select from 'react-select';
 import { useEffect } from 'react';
-import AddRentPostComponent from '../Add l Edit/AddRentPostComponent';
-import image from '../../images/noPostPhoto.png';
-import { useGlobalUser } from '../utils/AuthContext';
+import AddRentPostComponent from '../../Add and Edit/AddRentPostComponent';
+
+import { useGlobalUser } from '../../utils/AuthContext';
+import RentPostCards from './RentPostCards';
 
 function RentPostsPage() {
 
@@ -71,33 +71,9 @@ function RentPostsPage() {
                                 <br></br>
                                 <br></br>
                                 <div className="container">
-                    
 
-                                    <div className="row">
-
-                                        {posts.map((post, i) => (
-                                            <div className="col col-lg-3" id={post.id} key={i} style={{ marginRight: "40px" }}>
-
-                                                <div className="card" style={{ width: '18rem', height: "400px" }}>
-                                                    {post.Photo ? (
-                                                        <img className="card-img-top" src={ post.Photo} style={{ height: "200px" }} alt="Card image cap" />
-                                                    ) : (
-                                                            <img className="card-img-top" src={image} style={{ height: "200px" }} alt="Card image cap" />
-                                                     )}
-                                                    
-                                                    <div className="card-body">
-                                                        <h5 className="card-title">{post.title}</h5>
-                                                        <p className="card-text">Location: { post.location}</p>
-                                                        <p className="card-text">Price: {post.price }$</p>
-                                                        <Link to="/" className="btn btn-primary">Show Details.</Link>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                      ))}
-
-                                        </div>
+                                        <RentPostCards posts={posts}></RentPostCards>
+                                    
                                     </div>
                                 </section>
 

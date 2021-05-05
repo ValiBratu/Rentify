@@ -1,5 +1,6 @@
 ﻿import React, { useEffect } from 'react';
 import { useState } from 'react';
+import RentPostCards from '../rentPosts/RentPostCards';
 
 function UserPosts(props) {
 
@@ -13,7 +14,7 @@ function UserPosts(props) {
         fetch(userPostsAPI + props.id+"/rent-posts")
             .then(response => response.json())
             .then(data => {
-               
+                
                 setPosts(data);
             })
             .catch(err=>console.log(err))
@@ -25,9 +26,7 @@ function UserPosts(props) {
 
             <div className="tab-content ml-1" id="myTabContent">
                 <div id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
-                    <div className="row">
-     
-                    </div>
+                    <RentPostCards posts={ posts}></RentPostCards>
                     <hr />
 
                 </div>

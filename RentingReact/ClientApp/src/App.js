@@ -10,7 +10,7 @@ import { UserContext } from './components/utils/AuthContext';
 
 
 import './custom.css'
-import RentPostsPage from './components/pages/RentPostsPage';
+import RentPostsPage from './components/pages/rentPosts/RentPostsPage';
 
 function App() {
   

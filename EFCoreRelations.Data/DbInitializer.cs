@@ -37,6 +37,7 @@ namespace EFCoreRelations.Data
            {
                 new ApplicationUser
                 {
+                    Id="1",
                     UserName= "Karin Hopper",
                     Email= "karinhopper@farmex.com",
                     PhoneNumber= "+40 (889) 555-3238",
@@ -45,6 +46,7 @@ namespace EFCoreRelations.Data
 
                 new ApplicationUser
                 {
+                    Id="2",
                     UserName="Cort Caplen",
                     Email="ccaplen0@va.gov",
                     PhoneNumber="+1 815 355 6522",
@@ -52,10 +54,9 @@ namespace EFCoreRelations.Data
                 },
                 new ApplicationUser
                 {
+                    Id="3",
                     UserName="Jacqueline Scurrell",
-
                     Email="jscurrell1@techcrunch.com",
-
                     PhoneNumber="+52 259 425 1371",
                     PasswordHash="nfIElu0sUf"
                 }

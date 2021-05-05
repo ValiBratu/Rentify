@@ -22,7 +22,7 @@ function UserProfile(props) {
             .then(data => {
 
                 setUserInfo(data);
-               
+                
 
             })
             .catch(err => console.log(err))
@@ -38,7 +38,7 @@ function UserProfile(props) {
                         <div className="card">
                             <div className="card-body">
 
-                                <ProfileHeader userData={userInfo}></ProfileHeader>
+                                <ProfileHeader userData={userInfo} userId={props.match.params.id}></ProfileHeader>
 
                                 <ProfileBodyHeader userData={userInfo}></ProfileBodyHeader>
         
