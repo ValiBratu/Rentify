@@ -101,5 +101,25 @@ namespace RentingApi.Controllers
             return post;
         }
 
+
+        [HttpGet("city/{id}")]
+        public async Task<ActionResult<IEnumerable<RentPost>>>RentPostsByCity(int id)
+        {
+            var rentPosts = _context.RentPosts.ToListAsync();
+
+            if (id == 0)
+            {
+                return await rentPosts;
+            }
+
+            var query = from rentPost in await rentPosts
+                        where rentPost.CityId.Equals(id)
+                        select rentPost;
+
+
+            return query.ToList();
+
+        }
+
     }
 }

@@ -6,6 +6,7 @@ import AddRentPostComponent from '../../Add and Edit/AddRentPostComponent';
 import { useGlobalUser } from '../../utils/AuthContext';
 import RentPostCards from './RentPostCards';
 
+
 function RentPostsPage() {
 
     const PostsAPI = "https://localhost:44364/api/RentPost";
@@ -46,10 +47,28 @@ function RentPostsPage() {
     },[]);
 
 
+    const fetchPostsByCity = (id) => {
+
+        const postsByCityAPI = "https://localhost:44364/api/RentPost/city/";
+
+        fetch(postsByCityAPI + id)
+            .then(response => response.json())
+            .then(data => {
+                setPosts(data);
+            })
+            .catch(err=>console.log(err))
+
+
+    };
+
+
+    const handleCityChange = (event) => {
+       
+        fetchPostsByCity(event.value);
+
+    };
     
-
-
-
+  
     return (
         <>
             <div className="container">
@@ -61,7 +80,7 @@ function RentPostsPage() {
 
                                 <section className="booking-block block-intro">
                                     <div style={{ width: "250px" }} >
-                                        <Select id="selectCityBar"  options={CitiesList.selectOptions} />
+                                        <Select id="selectCityBar" options={CitiesList.selectOptions} onChange={handleCityChange} />
                                     </div>
                                     <br></br>
                                     {user.Auth ? (
