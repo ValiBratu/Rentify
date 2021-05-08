@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCoreRelations.Data", "EFC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentingReact", "RentingReact\RentingReact.csproj", "{5F0AEE33-18A1-45A7-8479-6904ACF736B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{3F44F87A-FA68-4949-A607-267FC260B687}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{5F0AEE33-18A1-45A7-8479-6904ACF736B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F0AEE33-18A1-45A7-8479-6904ACF736B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F0AEE33-18A1-45A7-8479-6904ACF736B4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3F44F87A-FA68-4949-A607-267FC260B687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3F44F87A-FA68-4949-A607-267FC260B687}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3F44F87A-FA68-4949-A607-267FC260B687}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3F44F87A-FA68-4949-A607-267FC260B687}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
