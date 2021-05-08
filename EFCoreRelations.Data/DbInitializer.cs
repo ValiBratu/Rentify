@@ -76,7 +76,7 @@ namespace EFCoreRelations.Data
                       UserId="2",
                       Description= "Struck by field hockey stick",
                       Location= "8600 Macpherson Way",
-                      CityId= 1,
+                      CityId= 2,
                       Price= 389.35m
                     },
 
@@ -94,7 +94,7 @@ namespace EFCoreRelations.Data
                     UserId="2",
                     Description= "Other secondary chronic gout, wrist",
                     Location= "69 Bowman Center",
-                    CityId= 3,
+                    CityId= 1,
                     Price= 955.16m
                     },
 

@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentingApi", "RentingApi\RentingApi.csproj", "{BD1A8301-AA4C-4679-A159-B118BDDBC021}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentingApi", "RentingApi\RentingApi.csproj", "{BD1A8301-AA4C-4679-A159-B118BDDBC021}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCoreRelations.Data", "EFCoreRelations.Data\EFCoreRelations.Data.csproj", "{D12985E5-CCED-4B1D-BA80-6B6D6CADD6F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCoreRelations.Data", "EFCoreRelations.Data\EFCoreRelations.Data.csproj", "{D12985E5-CCED-4B1D-BA80-6B6D6CADD6F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentingReact", "RentingReact\RentingReact.csproj", "{5F0AEE33-18A1-45A7-8479-6904ACF736B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentingReact", "RentingReact\RentingReact.csproj", "{5F0AEE33-18A1-45A7-8479-6904ACF736B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{3F44F87A-FA68-4949-A607-267FC260B687}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{5F0AEE33-18A1-45A7-8479-6904ACF736B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F0AEE33-18A1-45A7-8479-6904ACF736B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F0AEE33-18A1-45A7-8479-6904ACF736B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F44F87A-FA68-4949-A607-267FC260B687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F44F87A-FA68-4949-A607-267FC260B687}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F44F87A-FA68-4949-A607-267FC260B687}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F44F87A-FA68-4949-A607-267FC260B687}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

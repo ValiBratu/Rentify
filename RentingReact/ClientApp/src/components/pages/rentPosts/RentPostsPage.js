@@ -101,7 +101,6 @@ function RentPostsPage() {
                     </div>
                 </div>
             </div>
-
         </>
     );
 
