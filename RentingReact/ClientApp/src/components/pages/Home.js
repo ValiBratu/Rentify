@@ -36,6 +36,11 @@ function Home() {
                 <br></br>
                 <Link to="/register">
                     <button type="button" style={{ width: "200px" }} className="btn btn-primary">Sign up </button>
+                 </Link>
+
+                <br></br>
+                            <Link to="/posts">
+                                <button type="button" style={{ width: "200px", float: 'right', marginTop:"-32px" }} className="btn btn-success">See the newest Offers </button>
                 </Link>
                     </>
                     ) }

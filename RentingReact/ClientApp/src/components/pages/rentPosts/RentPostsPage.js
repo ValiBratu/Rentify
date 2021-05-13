@@ -7,12 +7,14 @@ import { useGlobalUser } from '../../utils/AuthContext';
 import RentPostCards from './RentPostCards';
 
 
+
 function RentPostsPage() {
 
     const PostsAPI = "https://localhost:44364/api/RentPost";
     const citiesAPI = "https://localhost:44364/api/Cities";
 
     const [posts, setPosts] = useState([]);
+
 
     const { user } = useGlobalUser();
 
@@ -46,6 +48,8 @@ function RentPostsPage() {
             .catch(err => console.log(err))
     },[]);
 
+    
+
 
     const fetchPostsByCity = (id) => {
 
@@ -67,7 +71,9 @@ function RentPostsPage() {
         fetchPostsByCity(event.value);
 
     };
-    
+
+
+  
   
     return (
         <>
@@ -79,8 +85,11 @@ function RentPostsPage() {
 
 
                                 <section className="booking-block block-intro">
-                                    <div style={{ width: "250px" }} >
-                                        <Select id="selectCityBar" options={CitiesList.selectOptions} onChange={handleCityChange} />
+                                    <div className="row">
+                                        <div style={{ width: "250px" }} >
+                                            <Select id="selectCityBar" options={CitiesList.selectOptions} onChange={handleCityChange} />
+                                        </div>
+                                       
                                     </div>
                                     <br></br>
                                     {user.Auth ? (
@@ -95,7 +104,7 @@ function RentPostsPage() {
                                     
                                     </div>
                                 </section>
-
+                               
                             </div>
                         </div>
                     </div>

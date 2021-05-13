@@ -28,7 +28,7 @@ function UserPosts(props) {
                 <div id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
                     <RentPostCards posts={ posts}></RentPostCards>
                     <hr />
-
+            
                 </div>
             </div>
 

@@ -11,6 +11,7 @@ import { UserContext } from './components/utils/AuthContext';
 
 import './custom.css'
 import RentPostsPage from './components/pages/rentPosts/RentPostsPage';
+import PostPage from './components/pages/postPage/PostPage';
 
 function App() {
   
@@ -62,7 +63,9 @@ function App() {
 
                 <Route exact path='/profile/:id' component={UserProfile} />
 
-                <Route exact path="/posts" component={RentPostsPage}/>
+                <Route exact path="/posts" component={RentPostsPage} />
+
+                <Route exact path="/postPage" component={PostPage}/>
 
                  <Route path="*" component={NotFound} />
              </Switch>
