@@ -51,14 +51,15 @@ function Home() {
             <div className="row marketing">
                 <div className="col-lg-6">
                     <h4>Features:</h4>
-                    <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-                    <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+                    <p>Email notification about newest rent posts.</p>
+                    <p>Landlords can post their properties to be seen by potential tenants.</p>
 
                 </div>
                 <div className="col-lg-6">
-                    <h4>Subheading</h4>
-                    <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-                    <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+                    <h4>Our Mission:</h4>
+                    <p>For landlords: to make the process of renting a property as easy as possible.</p>
+                    <p>For tenants: to find a place more accessible.</p>
+                   
 
                 </div>
             </div>

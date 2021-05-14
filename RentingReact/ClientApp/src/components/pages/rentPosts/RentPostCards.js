@@ -62,7 +62,7 @@ function RentPostCards(props) {
                                 <h5 className="card-title">{post.title}</h5>
                                 <p className="card-text">Location: {post.location}</p>
                                 <p className="card-text">Price: {post.price}$</p>
-                                <Link to="/post" className="btn btn-primary">Show Details.</Link>
+                                <Link to={"/post/"+post.id} className="btn btn-primary">Show Details.</Link>
                             </div>
                         </div>
 

@@ -1,13 +1,61 @@
 ﻿import React, { useState, useEffect } from 'react';
-import Carousel from 'react-bootstrap/Carousel'
 import CarouselPostPage from './CarouselPostPage';
+import MapComponent from './MapComponent';
+import PostPageDetails from './PostPageDetails';
 
 
 
 function PostPage(props) {
 
+    const [showComponent, setShowComponent] = useState();
 
-    
+
+
+    useEffect(() => {
+
+        setShowComponent(<PostPageDetails id={props.match.params.id}></PostPageDetails>);
+
+    }, []);
+
+    const makeButtonsSameClass = () => {
+
+        const showDataBtn = document.getElementById("info-tab");
+
+        const showPostsBtn = document.getElementById("map-tab");
+
+        showDataBtn.setAttribute("class", "nav-link");
+        showPostsBtn.setAttribute("class", "nav-link");
+    };
+
+    const showDetails = () => {
+
+        makeButtonsSameClass();
+        document.getElementById("info-tab").setAttribute("class", "nav-link active");
+
+        const detailsComp = (
+            <PostPageDetails id={props.match.params.id}></PostPageDetails>
+            );
+
+        setShowComponent(detailsComp);
+
+    };
+
+
+    const showMap = () => {
+
+        makeButtonsSameClass();
+        document.getElementById("map-tab").setAttribute("class", "nav-link active");
+
+        const mapComp = (
+            <MapComponent></MapComponent>
+        );
+
+        setShowComponent(mapComp);
+
+    };
+
+
+
 
     return (
         <>
@@ -19,71 +67,20 @@ function PostPage(props) {
                         <div className="card">
                             <div className="card-body">
 
-                                <CarouselPostPage></CarouselPostPage>
+                                <CarouselPostPage id={props.match.params.id}></CarouselPostPage>
                                 <br></br>
                                 <br></br>
                                 <div className="row">
                                     <div className="col-12">
                                         <ul className="nav nav-tabs mb-4" id="myTab" role="tablist">
                                             <li className="nav-item">
-                                                <a className="nav-link active" id="basicInfo-tab" data-toggle="tab" href="#basicInfo" role="tab" aria-controls="basicInfo" aria-selected="true">Basic Info</a>
+                                                <button type="button" className="nav-link active" id="info-tab" data-toggle="tab" role="tab" aria-controls="basicInfo" aria-selected="true" onClick={showDetails} >Post Details</button>
                                             </li>
                                             <li className="nav-item">
-                                                <a className="nav-link" id="connectedServices-tab" data-toggle="tab" href="#connectedServices" role="tab" aria-controls="connectedServices" aria-selected="false">Connected Services</a>
+                                                <button className="nav-link" id="map-tab" data-toggle="tab" role="tab" aria-controls="connectedServices" aria-selected="false" onClick={showMap} >Show on Map</button>
                                             </li>
                                         </ul>
-                                        <div className="tab-content ml-1" id="myTabContent">
-                                            <div className="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
-                                                <div className="row">
-                                                    <div className="col-sm-3 col-md-2 col-5">
-                                                        <label style={{ fontWeight: 'bold' }}>Full Name</label>
-                                                    </div>
-                                                    <div className="col-md-8 col-6">
-                                                        Jamshaid Kamran
-                          </div>
-                                                </div>
-                                                <hr />
-                                                <div className="row">
-                                                    <div className="col-sm-3 col-md-2 col-5">
-                                                        <label style={{ fontWeight: 'bold' }}>Birth Date</label>
-                                                    </div>
-                                                    <div className="col-md-8 col-6">
-                                                        March 22, 1994.
-                          </div>
-                                                </div>
-                                                <hr />
-                                                <div className="row">
-                                                    <div className="col-sm-3 col-md-2 col-5">
-                                                        <label style={{ fontWeight: 'bold' }}>Something</label>
-                                                    </div>
-                                                    <div className="col-md-8 col-6">
-                                                        Something
-                          </div>
-                                                </div>
-                                                <hr />
-                                                <div className="row">
-                                                    <div className="col-sm-3 col-md-2 col-5">
-                                                        <label style={{ fontWeight: 'bold' }}>Something</label>
-                                                    </div>
-                                                    <div className="col-md-8 col-6">
-                                                        Something
-                          </div>
-                                                </div>
-                                                <hr />
-                                                <div className="row">
-                                                    <div className="col-sm-3 col-md-2 col-5">
-                                                        <label style={{ fontWeight: 'bold' }}>Something</label>
-                                                    </div>
-                                                    <div className="col-md-8 col-6">
-                                                        Something
-                          </div>
-                                                </div>
-                                                <hr />
-                                            </div>
-                                            <div className="tab-pane fade" id="connectedServices" role="tabpanel" aria-labelledby="ConnectedServices-tab">
-                                                Facebook, Google, Twitter Account that are connected to this account
-                      </div>
-                                        </div>
+                                        {showComponent}
                                     </div>
                                 </div>
                             </div>

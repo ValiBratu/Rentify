@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace RentingApi.Controllers
-{
+{   [ApiExplorerSettings(IgnoreApi = true)]
     [Route("api/[controller]")]
     [ApiController]
     public class CitiesController : ControllerBase
@@ -28,6 +28,19 @@ namespace RentingApi.Controllers
         {
 
             return await _context.Cities.ToListAsync();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<City>> GetCityById(int id)
+        {
+            var city = await _context.Cities.FindAsync(id);
+
+            if (city == null)
+            {
+                return NotFound();
+            }
+
+            return city;
         }
     }
 }

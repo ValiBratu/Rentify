@@ -97,5 +97,26 @@ namespace RentingApi.Controllers
 
             return photo;
         }
+
+
+        [HttpGet("post/{id}")]
+        public async Task<ActionResult<IEnumerable<RentPostPhoto>>> PhotosByPost(int id)
+        {
+
+            var rentPhotos = await _context.RentPostPhotos.ToListAsync();
+
+            var query = from rentPhoto in rentPhotos
+                        where rentPhoto.RentPostId.Equals(id)
+                        select rentPhoto;
+
+            return query.ToList();
+
+
+        }
+
+
     }
+
+
+
 }

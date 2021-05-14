@@ -89,14 +89,13 @@ function RentPostsPage() {
                                         <div style={{ width: "250px" }} >
                                             <Select id="selectCityBar" options={CitiesList.selectOptions} onChange={handleCityChange} />
                                         </div>
-                                       
+                                        <div style={{ float: "right", marginLeft: "650px" }} >
+                                        {user.Auth ? (
+                                            <AddRentPostComponent cities={cities}></AddRentPostComponent>
+                                        ) : (<></>)}
+                                        </div>
                                     </div>
-                                    <br></br>
-                                    {user.Auth ? (
-                                        <AddRentPostComponent cities={cities} ></AddRentPostComponent>
-                                        ):(<></>)}
-                                
-                                <br></br>
+              
                                 <br></br>
                                 <div className="container">
 

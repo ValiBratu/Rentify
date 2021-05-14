@@ -62,7 +62,7 @@ function ProfileBodyHeader(props) {
                 <div className="col-12">
                     <ul className="nav nav-tabs mb-4" id="myTab" role="tablist">
                         <li className="nav-item">
-                            <button type="button" className="nav-link" id="basicInfo-tab" data-toggle="tab" role="tab" aria-controls="basicInfo" aria-selected="true" onClick={showUserData} >Basic Info</button>
+                            <button type="button" className="nav-link active" id="basicInfo-tab" data-toggle="tab" role="tab" aria-controls="basicInfo" aria-selected="true" onClick={showUserData} >Basic Info</button>
                         </li>
                         <li className="nav-item">
                             <button className="nav-link" id="posts-tab" data-toggle="tab" role="tab" aria-controls="connectedServices" aria-selected="false" onClick={showUserPosts}>User Posts</button>

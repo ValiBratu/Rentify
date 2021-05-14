@@ -1,10 +1,28 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿import Button from '@material-ui/core/Button';
+import React, { useState, useEffect } from 'react';
 import Carousel from 'react-bootstrap/Carousel'
+import AddImage from '../../Add and Edit/AddRentPhotos';
+import { useGlobalUser } from '../../utils/AuthContext';
 
 
 
 function CarouselPostPage(props) {
 
+    const rentPhotosAPI = "https://localhost:44364/api/RentPostPhotos";
+
+    const photosByRentIdAPI = "https://localhost:44364/api/RentPostPhotos/post/"; 
+
+    const [photos, setPhotos] = useState([]);
+
+    useEffect(() => {
+
+        fetch(photosByRentIdAPI+props.id)
+            .then(response => response.json())
+            .then(data => {
+                setPhotos(data);
+            })
+            .catch(err => console.log(err));
+    }, []);
 
     const carouselItem = {
         width: "1065px",
@@ -12,47 +30,38 @@ function CarouselPostPage(props) {
 
     };
 
+
+    
+
+
+
+
     return (
         <>
 
+            <div className="row" style={{ width:"250px" }}>
+
+                <AddImage ApiUrl={rentPhotosAPI } id={props.id} ></AddImage>
+
+            </div>
+            <br></br>
             <div className="row" style={{ width: "1065px", height:"450px" }}>
 
                 <Carousel>
-                    <Carousel.Item style={carouselItem}>
+
+                    {photos.map((photo, i) => (
+
+                    <Carousel.Item style={carouselItem} key={ i}>
                         <img style={carouselItem}
                             className="d-block w-100"
-                            src="https://www.humanesociety.org/sites/default/files/styles/1240x698/public/2020-07/kitten-510651.jpg?h=f54c7448&itok=ZhplzyJ9"
-                            alt="First slide"
-                        />
-                        <Carousel.Caption>
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                    <Carousel.Item style={carouselItem}>
-                        <img style={carouselItem}
-                            className="d-block w-100"
-                            src="https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png"
+                            src={"data:image/jpeg;base64," + photo.photo}
                            alt="Second slide"
                         />
 
-                        <Carousel.Caption>
-                            <h3>Second slide label</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </Carousel.Caption>
                     </Carousel.Item>
-                    <Carousel.Item style={carouselItem}>
-                        <img style={carouselItem}
-                            className="d-block w-100"
-                            src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_touching_human_hand_other/1800x1200_cat_touching_human_hand_other.jpg?resize=750px:*"
-                            alt="Third slide"
-                        />
 
-                        <Carousel.Caption>
-                            <h3>Third slide label</h3>
-                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                        </Carousel.Caption>
-                    </Carousel.Item>
+                    ))}
+
                 </Carousel>
 
             </div>

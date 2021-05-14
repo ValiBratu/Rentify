@@ -65,7 +65,7 @@ function App() {
 
                 <Route exact path="/posts" component={RentPostsPage} />
 
-                <Route exact path="/postPage" component={PostPage}/>
+                <Route exact path="/post/:id" component={PostPage}/>
 
                  <Route path="*" component={NotFound} />
              </Switch>
