@@ -14,6 +14,8 @@ function CarouselPostPage(props) {
 
     const [photos, setPhotos] = useState([]);
 
+    const { user } = useGlobalUser();
+
     useEffect(() => {
 
         fetch(photosByRentIdAPI+props.id)
@@ -40,8 +42,15 @@ function CarouselPostPage(props) {
         <>
 
             <div className="row" style={{ width:"250px" }}>
+                {user.id === props.id ? (
 
-                <AddImage ApiUrl={rentPhotosAPI } id={props.id} ></AddImage>
+                    <AddImage ApiUrl={rentPhotosAPI} id={props.id} ></AddImage>
+                ): (
+                    <>
+                     </>
+
+                )}
+               
 
             </div>
             <br></br>

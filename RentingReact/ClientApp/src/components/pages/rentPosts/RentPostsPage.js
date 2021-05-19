@@ -67,7 +67,8 @@ function RentPostsPage() {
 
 
     const handleCityChange = (event) => {
-       
+        console.log(cities);
+        console.log(cities[2]["value"]);
         fetchPostsByCity(event.value);
 
     };

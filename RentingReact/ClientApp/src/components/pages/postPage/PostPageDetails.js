@@ -3,26 +3,20 @@ import React, { useState, useEffect } from 'react';
 
 
 
+
 function PostPageDetails(props) {
 
-    const rentPostAPI = "https://localhost:44364/api/RentPost/";
-
+    
     const [details, setDetails] = useState([]);
 
-    
 
     useEffect(() => {
 
-        fetch(rentPostAPI + props.id)
-            .then(response => response.json())
-            .then(data => {
-                
-                setDetails(data);
-            })
-            .catch(err => console.log(err))
+        setDetails(props.data);
 
-       
-    }, []);
+
+
+    }, [props]);
 
 
     
@@ -55,7 +49,7 @@ function PostPageDetails(props) {
                             <label style={{ fontWeight: 'bold' }}>Location</label>
                         </div>
                         <div className="col-md-8 col-6">
-                            {details.location}
+                            {details.city+", "+details.location}
                         </div>
                     </div>
                     <hr />

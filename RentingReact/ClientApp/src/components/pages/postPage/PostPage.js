@@ -9,13 +9,37 @@ function PostPage(props) {
 
     const [showComponent, setShowComponent] = useState();
 
+    const [details, setDetails] = useState([]);
+
+
+    const postDetailsAPI = "https://localhost:44364/api/RentPost/";
+
 
 
     useEffect(() => {
 
-        setShowComponent(<PostPageDetails id={props.match.params.id}></PostPageDetails>);
+        
+
+        fetch(postDetailsAPI + props.match.params.id+"/Details")
+            .then(response => response.json())
+            .then(data => {
+                
+                setDetails(data);
+                setShowComponent(<PostPageDetails data={data}></PostPageDetails>);
+
+              
+                
+            })
+            .catch(err => console.log(err))
+
+           
+        
 
     }, []);
+
+
+
+
 
     const makeButtonsSameClass = () => {
 
@@ -33,7 +57,8 @@ function PostPage(props) {
         document.getElementById("info-tab").setAttribute("class", "nav-link active");
 
         const detailsComp = (
-            <PostPageDetails id={props.match.params.id}></PostPageDetails>
+            <PostPageDetails data={details} ></PostPageDetails>
+            
             );
 
         setShowComponent(detailsComp);
@@ -41,13 +66,31 @@ function PostPage(props) {
     };
 
 
-    const showMap = () => {
+    const fetchLatAndLong = () => {
+
+
+
+        const geocodingApiKey = "AIzaSyDJofOQIFypBaj7MvcmCJkqtz5PhyuMU0c";
+        const loc = details.city + " " + details.location;
+        const apiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + loc + "&key=" + geocodingApiKey;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+           
+                showMap(data.results[0].geometry.location.lat, data.results[0].geometry.location.lng);
+            })
+            .catch(err => console.log(err))
+
+    }
+
+    const showMap = (lat, long) => {
 
         makeButtonsSameClass();
         document.getElementById("map-tab").setAttribute("class", "nav-link active");
 
         const mapComp = (
-            <MapComponent></MapComponent>
+            <MapComponent latitude={lat} longitude = {long}></MapComponent>
         );
 
         setShowComponent(mapComp);
@@ -77,7 +120,7 @@ function PostPage(props) {
                                                 <button type="button" className="nav-link active" id="info-tab" data-toggle="tab" role="tab" aria-controls="basicInfo" aria-selected="true" onClick={showDetails} >Post Details</button>
                                             </li>
                                             <li className="nav-item">
-                                                <button className="nav-link" id="map-tab" data-toggle="tab" role="tab" aria-controls="connectedServices" aria-selected="false" onClick={showMap} >Show on Map</button>
+                                                <button className="nav-link" id="map-tab" data-toggle="tab" role="tab" aria-controls="connectedServices" aria-selected="false" onClick={fetchLatAndLong} >Show on Map</button>
                                             </li>
                                         </ul>
                                         {showComponent}

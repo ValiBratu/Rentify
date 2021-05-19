@@ -121,6 +121,26 @@ namespace RentingApi.Controllers
 
         }
 
+        [HttpGet("{id}/Details")]
+        public async Task<ActionResult<RentPostDTO>> RentPostDetails(int id)
+        {
+            var rentPost = await _context.RentPosts.FindAsync(id);
+
+            var cities = await _context.Cities.FindAsync(rentPost.CityId);
+
+            RentPostDTO details = new RentPostDTO()
+            {
+                id = rentPost.Id,
+                Title = rentPost.Title,
+                Description=rentPost.Description,
+                Location=rentPost.Location,
+                Price=rentPost.Price,
+                UserId=rentPost.UserId,
+                City=cities.Name
+            };
+            return details;
+
+        }
 
     }
 }
