@@ -105,7 +105,7 @@ namespace RentingApi.Controllers
         [HttpGet("city/{id}")]
         public async Task<ActionResult<IEnumerable<RentPost>>>RentPostsByCity(int id)
         {
-            var rentPosts = _context.RentPosts.ToListAsync();
+            var rentPosts = _context.RentPosts.Include(e => e.RentPostPhotos).ToListAsync();
 
             if (id == 0)
             {
@@ -139,6 +139,36 @@ namespace RentingApi.Controllers
                 City=cities.Name
             };
             return details;
+
+        }
+
+        [HttpGet("Photos")]
+        public async Task<ActionResult<IEnumerable<RentPost>>> RentPostsPhotos()
+        {
+
+            var rentPosts = await _context.RentPosts.Include(e => e.RentPostPhotos).ToListAsync();
+
+           
+
+            //var rentPhotos = await _context.RentPostPhotos.ToListAsync();
+
+            //List<RentPostPhotoDTO> listOfPosts = new List<RentPostPhotoDTO>();
+
+            //foreach (var rentPost in rentPosts)
+            //{
+            //    var rentPostPhotos = rentPhotos.Where(e => e.RentPostId.Equals(rentPost.Id));
+
+            //    RentPostPhotoDTO rentDetails = new RentPostPhotoDTO() {
+
+            //        RentPost = rentPost,
+            //        RentPhotos = rentPostPhotos.ToList()
+
+            //    };
+
+            //    listOfPosts.Add(rentDetails);
+            //}
+
+            return rentPosts;
 
         }
 

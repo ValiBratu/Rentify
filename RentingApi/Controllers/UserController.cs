@@ -105,7 +105,7 @@ namespace RentingApi.Controllers
         public async Task<ActionResult<IEnumerable<RentPost>>> GetUserPosts(string id)
         {
 
-            var posts = await _context.RentPosts.ToListAsync();
+            var posts = await _context.RentPosts.Include(e => e.RentPostPhotos).ToListAsync();
 
             
 

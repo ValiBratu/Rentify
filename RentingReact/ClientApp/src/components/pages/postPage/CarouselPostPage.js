@@ -1,4 +1,4 @@
-﻿import Button from '@material-ui/core/Button';
+﻿
 import React, { useState, useEffect } from 'react';
 import Carousel from 'react-bootstrap/Carousel'
 import AddImage from '../../Add and Edit/AddRentPhotos';

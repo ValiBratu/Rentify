@@ -18,7 +18,7 @@ namespace EFCoreRelations.Data.Models
         [Required]
         [ForeignKey("RentPostId")]
         public int RentPostId { get; set; }
-        public RentPost RentPost { get; set; }
+        //public RentPost RentPost { get; set; }
 
         public string Photo { get; set; }
 

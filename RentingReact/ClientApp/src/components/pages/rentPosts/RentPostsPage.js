@@ -10,7 +10,7 @@ import RentPostCards from './RentPostCards';
 
 function RentPostsPage() {
 
-    const PostsAPI = "https://localhost:44364/api/RentPost";
+    const PostsAPI = "https://localhost:44364/api/RentPost/Photos";
     const citiesAPI = "https://localhost:44364/api/Cities";
 
     const [posts, setPosts] = useState([]);
@@ -31,6 +31,7 @@ function RentPostsPage() {
             .then(data => {
                
                 setPosts(data);
+                
             })
             .catch(err => console.log(err))
 
@@ -67,8 +68,7 @@ function RentPostsPage() {
 
 
     const handleCityChange = (event) => {
-        console.log(cities);
-        console.log(cities[2]["value"]);
+
         fetchPostsByCity(event.value);
 
     };

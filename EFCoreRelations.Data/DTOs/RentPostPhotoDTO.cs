@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EFCoreRelations.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,11 +10,9 @@ namespace EFCoreRelations.Data.DTOs
 {
     public class RentPostPhotoDTO
     {
-        [Required]
-        public int RentPostId { get; set; }
+        public RentPost RentPost { get; set; }
 
-        public string Photo { get; set; }
-
+        public IEnumerable<RentPostPhoto> RentPhotos { get; set; }
 
     }
 }

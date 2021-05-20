@@ -4,14 +4,16 @@ using EFCoreRelations.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFCoreRelations.Data.Migrations
 {
     [DbContext(typeof(RentDBContext))]
-    partial class RentDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210520102320_Removed_RentPost_Column_From_RentPostPhotos_Table")]
+    partial class Removed_RentPost_Column_From_RentPostPhotos_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

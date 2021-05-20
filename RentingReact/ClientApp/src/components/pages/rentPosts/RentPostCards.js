@@ -32,7 +32,7 @@ function RentPostCards(props) {
         setOrder("Newest");
 
     }
-
+    //src = { "data:image/jpeg;base64," + photo.photo }
     return (
         <> 
 
@@ -52,10 +52,10 @@ function RentPostCards(props) {
                     <div className="col col-lg-3" id={post.id} key={i} style={{ marginRight: "40px", marginBottom:"20px" }}>
 
                         <div className="card" style={{ width: '18rem', height: "400px" }}>
-                            {post.Photo ? (
-                                <img className="card-img-top" src={post.Photo} style={{ height: "200px" }} alt="Card image" />
+                            {post.rentPostPhotos.length > 0 ?  (
+                                <img className="card-img-top" src={"data:image/jpeg;base64," + post.rentPostPhotos[0].photo} style={{ height: "200px" }} alt="postImg" />
                             ) : (
-                                    <img className="card-img-top" src={image} style={{ height: "200px" }} alt="Card image cap" />
+                                    <img className="card-img-top" src={image} style={{ height: "200px" }} alt="notfound" />
                                 )}
 
                             <div className="card-body">
