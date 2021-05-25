@@ -1,4 +1,5 @@
 ﻿import React, { useState, useEffect  } from 'react';
+
 import ProfileBodyHeader from './ProfileBodyHeader';
 import ProfileHeader from './ProfileHeader';
 
@@ -30,8 +31,8 @@ function UserProfile(props) {
 
 
     return (
-        <>  
-
+        <>
+            
             <div className="container">
                 <div className="row">
                     <div className="col-12">

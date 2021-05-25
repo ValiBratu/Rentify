@@ -22,8 +22,11 @@ function CarouselPostPage(props) {
             .then(response => response.json())
             .then(data => {
                 setPhotos(data);
+                
             })
             .catch(err => console.log(err));
+
+        
     }, []);
 
     const carouselItem = {
@@ -42,7 +45,7 @@ function CarouselPostPage(props) {
         <>
 
             <div className="row" style={{ width:"250px" }}>
-                {user.id === props.id ? (
+                {user.Id === props.userId ? (
 
                     <AddImage ApiUrl={rentPhotosAPI} id={props.id} ></AddImage>
                 ): (

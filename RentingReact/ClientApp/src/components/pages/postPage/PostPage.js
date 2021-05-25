@@ -14,7 +14,7 @@ function PostPage(props) {
 
     const postDetailsAPI = "https://localhost:44364/api/RentPost/";
 
-
+    const [carouselComp, setCarouselComp] = useState();
 
     useEffect(() => {
 
@@ -25,8 +25,9 @@ function PostPage(props) {
             .then(data => {
                 
                 setDetails(data);
+                
                 setShowComponent(<PostPageDetails data={data}></PostPageDetails>);
-
+                setCarouselComp(<CarouselPostPage id={props.match.params.id} userId={data.userId} ></CarouselPostPage>);
               
                 
             })
@@ -35,7 +36,7 @@ function PostPage(props) {
            
         
 
-    }, []);
+    }, [props]);
 
 
 
@@ -110,7 +111,7 @@ function PostPage(props) {
                         <div className="card">
                             <div className="card-body">
 
-                                <CarouselPostPage id={props.match.params.id}></CarouselPostPage>
+                                {carouselComp}
                                 <br></br>
                                 <br></br>
                                 <div className="row">

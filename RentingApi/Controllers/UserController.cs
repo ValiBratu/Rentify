@@ -41,7 +41,7 @@ namespace RentingApi.Controllers
                 return NotFound();
             }
 
-            var AllPhotos = _context.UserPhotos;
+            var AllPhotos = await _context.UserPhotos.ToListAsync();
 
             var userPhotos = from photo in AllPhotos
                              where photo.UserId == id
@@ -99,6 +99,17 @@ namespace RentingApi.Controllers
 
             return NoContent();
         }
+
+        [HttpPost("photo")]
+        public async Task<ActionResult<RentPostPhoto>> UserPhoto(UserPhoto Photo)
+        {
+            _context.UserPhotos.Add(Photo);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetUserPhotos", new { id = Photo.Id }, Photo);
+        }
+
+     
 
 
         [HttpGet("{id}/rent-posts")]
