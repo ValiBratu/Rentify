@@ -62,6 +62,7 @@ function RentPostsPage() {
             .then(response => response.json())
             .then(data => {
                 setPosts(data);
+                setAllPosts(data);
             })
             .catch(err=>console.log(err))
 
@@ -75,6 +76,7 @@ function RentPostsPage() {
 
     };
 
+    
 
     const searchByLocation=() => {
 
@@ -85,20 +87,21 @@ function RentPostsPage() {
             return;
         }
 
-        const filteredPosts = allPosts.filter(post => post.location.includes(searchValue));
+        const filteredPosts = allPosts.filter(post => post.location.toLowerCase().includes(searchValue.toLowerCase()));
 
 
         setPosts(filteredPosts);
-
+        setValue([0, 1000]);
     };
 
     const [value, setValue] = React.useState([0, 1000]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
-        console.log(allPosts);
-        //const filteredPosts = allPosts.filter(post => { post.price >= newValue[0] && post.price <= newValue[1] });
-        //setPosts(filteredPosts);
+
+        const filteredPosts = allPosts.filter(post => post.price >= newValue[0] && post.price <= newValue[1]);
+       
+        setPosts(filteredPosts);
 
     };
 
@@ -148,7 +151,7 @@ function RentPostsPage() {
                                                     </Typography>
                                                 <Slider
                                                         value={value}
-                                                        onChangeCommitted={handleChange}
+                                                        onChange={handleChange}
                                                         
                                                         valueLabelDisplay="auto"
                                                         aria-labelledby="range-slider"
