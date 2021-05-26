@@ -18,6 +18,8 @@ function RentPostsPage() {
 
     const [allPosts, setAllPosts] = useState([]); 
 
+    const [locationPosts, setLocationPosts] = useState([]);
+
     const { user } = useGlobalUser();
 
     const [CitiesList, setCitiesList] = useState({
@@ -34,6 +36,7 @@ function RentPostsPage() {
                
                 setPosts(data);
                 setAllPosts(data);
+                setLocationPosts(data);
             })
             .catch(err => console.log(err))
 
@@ -63,6 +66,7 @@ function RentPostsPage() {
             .then(data => {
                 setPosts(data);
                 setAllPosts(data);
+                setLocationPosts(data);
             })
             .catch(err=>console.log(err))
 
@@ -84,12 +88,13 @@ function RentPostsPage() {
 
         if (searchValue === "") {
             setPosts(allPosts);
+            setLocationPosts(allPosts);
             return;
         }
 
         const filteredPosts = allPosts.filter(post => post.location.toLowerCase().includes(searchValue.toLowerCase()));
 
-
+        setLocationPosts(filteredPosts);
         setPosts(filteredPosts);
         setValue([0, 1000]);
     };
@@ -99,7 +104,7 @@ function RentPostsPage() {
     const handleChange = (event, newValue) => {
         setValue(newValue);
 
-        const filteredPosts = allPosts.filter(post => post.price >= newValue[0] && post.price <= newValue[1]);
+        const filteredPosts = locationPosts.filter(post => post.price >= newValue[0] && post.price <= newValue[1]);
        
         setPosts(filteredPosts);
 
