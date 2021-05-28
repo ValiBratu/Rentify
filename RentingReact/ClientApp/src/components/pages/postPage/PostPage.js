@@ -25,7 +25,7 @@ function PostPage(props) {
             .then(data => {
                 
                 setDetails(data);
-                
+             
                 setShowComponent(<PostPageDetails data={data}></PostPageDetails>);
                 setCarouselComp(<CarouselPostPage id={props.match.params.id} userId={data.userId} ></CarouselPostPage>);
               

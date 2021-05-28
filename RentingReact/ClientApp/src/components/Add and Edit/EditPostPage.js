@@ -14,17 +14,34 @@ function EditPostPage(props) {
     const { user } = useGlobalUser();
     const history = useHistory();
 
+
+    const [city, setCity] = useState(); 
+
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => { setShow(true);  console.log(city) };
+
+    const citiesAPI = "https://localhost:44364/api/Cities";
 
     const [loading, setLoading] = useState();
+
+    
 
     const [cities, setCities] = useState([]);
 
     useEffect(() => {
-
-        setCities(props.cities);
-
+        setCity(props.data.cityId);
+        fetch(citiesAPI)
+            .then(response => response.json())
+            .then(data => {
+                const options = data.map(d => ({
+                    "value": d.id,
+                    "label": d.name
+                }))
+                setCities(options);
+               
+            })
+            .catch(err => console.log(err))
+        
     }, [props]);
 
 
@@ -37,9 +54,6 @@ function EditPostPage(props) {
         const location = document.getElementById("location").value;
         const price = document.getElementById("price").value;
 
-        if (!verifyValues(title, description, location, price)) {
-            return;
-        }
 
         const load = (
             <>
@@ -56,22 +70,20 @@ function EditPostPage(props) {
 
     const callAPI = (title, desc, loc, price) => {
 
-        const rentPostAPI = "https://localhost:44364/api/RentPost";
-
+        const rentPostAPI = "https://localhost:44364/api/RentPost/" + props.data.id;
+   
         let sentData = {
             Title: title,
             Description: desc,
             Location: loc,
             Price: price,
-            UserId: user.Id,
-            CityId: cityId
+            CityId: city,
+            UserId:props.data.userId
 
         };
 
-        console.log(sentData);
-
         fetch(rentPostAPI, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-type': 'application/json'
             },
@@ -79,28 +91,20 @@ function EditPostPage(props) {
                 sentData)
         })
             .then(response => {
-                console.log(response);
+             
                 validateStatus(response.status);
-
             })
+            
 
             .catch(err => console.log(err))
 
     }
 
-    const verifyValues = (title, desc, loc, price) => {
-        const warning = document.getElementById("warning");
-        if (title === "" || desc === "" || loc === "" || price === "" || cityId === 0) {
-            warning.textContent = "All fields must be completed!";
-            return false;
-        }
-        warning.textContent = "";
-        return true;
-    }
+  
 
     const validateStatus = (status) => {
 
-        if (status === 201) {
+        if (status >= 200 && status<=205) {
 
             swal2
                 .fire({
@@ -110,7 +114,7 @@ function EditPostPage(props) {
                     setLoading(null);
                     handleClose();
                     history.push("/");
-                    history.push("/posts");
+                    history.push("/post/"+props.data.id);
                 });
             return;
         }
@@ -118,20 +122,19 @@ function EditPostPage(props) {
         setLoading(null);
     }
 
-    let cityId = 0;
+    
 
     const changeCity = (event) => {
-
-        cityId = event.value;
+      
+        setCity(event.value);
 
 
     };
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
-                Add a new post
-            </Button>
+            <button type="button" className="btn btn-secondary" onClick={handleShow}>Edit Details </button>
+
 
             <Modal show={show} onHide={handleClose} animation={false}>
                 <Modal.Header closeButton>
@@ -144,31 +147,31 @@ function EditPostPage(props) {
 
                             <div className="form-group">
                                 <label>Title</label>
-                                <input type="text" className="form-control" placeholder="Title" name="title" id="title" />
+                                <input type="text" className="form-control" placeholder="Title" name="title" id="title" defaultValue={ props.data.title} />
 
                             </div>
 
 
                             <div className="form-group">
                                 <label>Description</label>
-                                <input type="text" className="form-control" placeholder="Description" name="description" id="description" />
+                                <input type="text" className="form-control" placeholder="Description" name="description" id="description" defaultValue={props.data.description} />
                             </div>
 
 
                             <div className="form-group">
                                 <label>City</label>
-                                <Select id="selectCityBar" options={cities} onChange={changeCity} />
+                                <Select id="selectCityBar" options={cities} onChange={changeCity}  />
                             </div>
 
 
                             <div className="form-group">
                                 <label>Location</label>
-                                <input type="text" className="form-control" id="location" name="location" placeholder="Location" />
+                                <input type="text" className="form-control" id="location" name="location" placeholder="Location" defaultValue={props.data.location} />
                             </div>
 
                             <div className="form-group">
                                 <label>Price</label>
-                                <input className="form-control" type="number" name="price" id="price" placeholder="Price $" />
+                                <input className="form-control" type="number" name="price" id="price" placeholder="Price $" defaultValue={props.data.price}/>
 
                             </div>
 
@@ -176,7 +179,7 @@ function EditPostPage(props) {
 
                             <p id="warning" style={{ color: 'red' }}></p>
 
-                            <div >
+                            <div style={{ marginLeft: "180px"}}>
                                 {loading}
 
                             </div>
@@ -191,7 +194,7 @@ function EditPostPage(props) {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                 </Button>
-                    <Button variant="primary" onClick={getInputs}>
+                    <Button variant="primary" onClick={getInputs} >
                         Save
                  </Button>
                 </Modal.Footer>

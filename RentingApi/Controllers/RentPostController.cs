@@ -61,6 +61,8 @@ namespace RentingApi.Controllers
                 currentPost.Description = rentPost.Description;
                 currentPost.Location = rentPost.Location;
                 currentPost.Price = rentPost.Price;
+                currentPost.CityId = rentPost.CityId;
+
 
                 await _context.SaveChangesAsync();
                 
@@ -128,15 +130,19 @@ namespace RentingApi.Controllers
 
             var cities = await _context.Cities.FindAsync(rentPost.CityId);
 
+            var user = await _context.Users.FindAsync(rentPost.UserId);
+
             RentPostDTO details = new RentPostDTO()
             {
                 id = rentPost.Id,
                 Title = rentPost.Title,
-                Description=rentPost.Description,
-                Location=rentPost.Location,
-                Price=rentPost.Price,
-                UserId=rentPost.UserId,
-                City=cities.Name
+                Description = rentPost.Description,
+                Location = rentPost.Location,
+                Price = rentPost.Price,
+                UserId = user.Id,
+                UserName = user.UserName,
+                City = cities.Name,
+                CityId = cities.Id
             };
             return details;
 
