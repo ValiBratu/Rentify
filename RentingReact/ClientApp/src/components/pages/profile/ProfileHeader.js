@@ -11,12 +11,11 @@ function ProfileHeader(props) {
 
     const [userId, setUserId] = useState();
 
-    const [userPhoto, setUserPhoto] = useState();
-    
+   
     useEffect(() => {
 
         setUserId(props.userId);
-        setUserPhoto("data:image/jpeg;base64," + props.userData.photo);
+        
     }, [props]);
 
 
@@ -31,9 +30,9 @@ function ProfileHeader(props) {
             <div className="d-flex justify-content-start">
                     <div className="image-container">
 
-                        {props.userData.photo !== "" ? (
+                        {props.userData.photo !== "" && props.userData.photo !== undefined ? (
 
-                            <img src={userPhoto} id="imgProfile" style={{ width: '150px', height: '150px' }} className="img-thumbnail" alt="profileImg" />
+                            <img src={"data:image/jpeg;base64," + props.userData.photo} id="imgProfile" style={{ width: '150px', height: '150px' }} className="img-thumbnail" alt="profileImg" />
 
                         ) : (
 

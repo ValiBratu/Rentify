@@ -100,42 +100,7 @@ namespace RentingApi.Controllers
             return NoContent();
         }
 
-        [HttpPost("photo")]
-        public async Task<ActionResult<UserPhoto>> UserPhoto(UserPhoto Photo)
-        {
-            _context.UserPhotos.Add(Photo);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUserPhotos", new { id = Photo.Id }, Photo);
-        }
-
-        [HttpPut("{id}/photo")]
-        public async Task<IActionResult> PutUserPhoto(string id, [FromBody] UserPhoto userPhoto)
-        {
-            if (!_context.UserPhotos.Any(b => b.UserId == id))
-            {
-                return BadRequest();
-            }
-
-            try
-            {
-                var currentPhoto = _context.UserPhotos.Single(b => b.UserId == id);
-
-                currentPhoto.Photo = userPhoto.Photo;
-            
-
-                await _context.SaveChangesAsync();
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-
-            }
-
-            return NoContent();
-        }
 
 
 

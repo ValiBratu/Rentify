@@ -8,8 +8,8 @@ function AddUserPhoto(props) {
 
     const history = useHistory();
 
-    const userPhotoPostApi = "https://localhost:44364/api/User/photo";
-    const userPhotoPutAPI = "https://localhost:44364/api/User/";
+    const userPhotoPostApi = "https://localhost:44364/api/UserPhoto";
+    const userPhotoPutAPI = "https://localhost:44364/api/UserPhoto/";
 
     
     
@@ -70,7 +70,7 @@ function AddUserPhoto(props) {
             Photo: image
         }
 
-        fetch(userPhotoPutAPI+props.data.id+"/photo", {
+        fetch(userPhotoPutAPI+props.data.id, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json'
