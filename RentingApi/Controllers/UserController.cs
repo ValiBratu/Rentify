@@ -45,7 +45,7 @@ namespace RentingApi.Controllers
 
             var userPhotos = from photo in AllPhotos
                              where photo.UserId == id
-                       select photo.Photo;
+                             select photo.Photo;
 
             string userPhoto = "";
 
@@ -64,7 +64,7 @@ namespace RentingApi.Controllers
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 Photo = userPhoto,
-                NumberOfPosts=userPosts.Count()
+                NumberOfPosts = userPosts.Count()
 
             };
 
@@ -101,7 +101,7 @@ namespace RentingApi.Controllers
         }
 
         [HttpPost("photo")]
-        public async Task<ActionResult<RentPostPhoto>> UserPhoto(UserPhoto Photo)
+        public async Task<ActionResult<UserPhoto>> UserPhoto(UserPhoto Photo)
         {
             _context.UserPhotos.Add(Photo);
             await _context.SaveChangesAsync();
@@ -109,7 +109,35 @@ namespace RentingApi.Controllers
             return CreatedAtAction("GetUserPhotos", new { id = Photo.Id }, Photo);
         }
 
-     
+        [HttpPut("{id}/photo")]
+        public async Task<IActionResult> PutUserPhoto(string id, [FromBody] UserPhoto userPhoto)
+        {
+            if (!_context.UserPhotos.Any(b => b.UserId == id))
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var currentPhoto = _context.UserPhotos.Single(b => b.UserId == id);
+
+                currentPhoto.Photo = userPhoto.Photo;
+            
+
+                await _context.SaveChangesAsync();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+
+            }
+
+            return NoContent();
+        }
+
+
 
 
         [HttpGet("{id}/rent-posts")]

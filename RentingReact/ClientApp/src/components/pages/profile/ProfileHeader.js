@@ -1,6 +1,7 @@
 ﻿import React, { useEffect } from 'react';
 import { useState } from 'react';
 import image from '../../../images/NoUserImage.jpg';
+import AddUserPhoto from '../../Add and Edit/AddUserPhoto';
 import { useGlobalUser } from '../../utils/AuthContext';
 
 
@@ -10,11 +11,14 @@ function ProfileHeader(props) {
 
     const [userId, setUserId] = useState();
 
+    const [userPhoto, setUserPhoto] = useState();
+    
     useEffect(() => {
 
         setUserId(props.userId);
-        
+        setUserPhoto("data:image/jpeg;base64," + props.userData.photo);
     }, [props]);
+
 
 
 
@@ -29,8 +33,8 @@ function ProfileHeader(props) {
 
                         {props.userData.photo !== "" ? (
 
-                            <img src="" id="imgProfile" style={{ width: '150px', height: '150px' }} className="img-thumbnail" alt="profileImg"  />
-                               
+                            <img src={userPhoto} id="imgProfile" style={{ width: '150px', height: '150px' }} className="img-thumbnail" alt="profileImg" />
+
                         ) : (
 
                                 <div>
@@ -44,9 +48,7 @@ function ProfileHeader(props) {
 
                         {user.Id === userId ? (
                             <div className="middle">
-                                <label htmlFor="btnChangePicture" style={{ marginTop: "15px" }}>
-                                    <input type="button" className="btn btn-secondary" id="btnChangePicture" defaultValue="Edit Profile" />
-                                </label>
+                                <AddUserPhoto data={ props.userData}></AddUserPhoto>
                             </div>
 
                         ) : (
