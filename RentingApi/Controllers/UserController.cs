@@ -1,6 +1,7 @@
 ﻿using EFCoreRelations.Data;
 using EFCoreRelations.Data.DTOs;
 using EFCoreRelations.Data.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -72,20 +73,34 @@ namespace RentingApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(string id, [FromBody] RegisterModel User)
+        public async Task<IActionResult> PutUser(string id, [FromBody] UserDTO User)
         {
             if (!_context.Users.Any(b => b.Id == id))
             {
                 return BadRequest();
             }
 
+            var users = await _context.Users.ToListAsync();
+
+            foreach (var user in users)
+            {
+                if(user.Email==User.Email && user.Id != id)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Email already in use!" });
+                }
+            }
+
+
             try
             {
                 var currentPost = _context.Users.Single(b => b.Id == id);
 
-                currentPost.UserName = User.Username;
+                currentPost.UserName = User.UserName;
                 currentPost.Email = User.Email;
                 currentPost.PhoneNumber = User.PhoneNumber;
+                currentPost.NormalizedEmail = User.Email.ToUpper();
+                currentPost.NormalizedUserName = User.UserName.ToUpper();
+
 
                 await _context.SaveChangesAsync();
 
