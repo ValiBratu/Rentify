@@ -32,12 +32,12 @@ function RentPostCards(props) {
         setOrder("Newest");
 
     }
-    //src = { "data:image/jpeg;base64," + photo.photo }
+   
     return (
         <> 
 
             <div className="row">
-                <Button variant="contained" color="primary"  onClick={changeOrder}>
+                <Button variant="contained" color="primary" onClick={changeOrder} style={{marginLeft:"450px"}}>
                     {"See "+order}
                 </Button>
 
@@ -45,11 +45,11 @@ function RentPostCards(props) {
                 
             </div>
             <br></br>
-            <div className="row">
+            <div className="row" style={{ textAlign:"center" }}>
 
 
                 {posts.sort((a, b) => b.id > a.id ? sortOrder : -1).map((post, i) => (
-                    <div className="col col-lg-3" id={post.id} key={i} style={{ marginRight: "40px", marginBottom:"20px" }}>
+                    <div className="col col-lg-3" id={post.id} key={i} style={{ marginRight: "20px", marginBottom: "20px", marginLeft:"40px" }}>
 
                         <div className="card" style={{ width: '18rem', height: "400px" }}>
                             {post.rentPostPhotos.length > 0 ?  (
