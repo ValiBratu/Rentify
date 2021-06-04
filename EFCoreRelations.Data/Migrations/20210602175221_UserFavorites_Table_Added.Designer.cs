@@ -4,14 +4,16 @@ using EFCoreRelations.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFCoreRelations.Data.Migrations
 {
     [DbContext(typeof(RentDBContext))]
-    partial class RentDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210602175221_UserFavorites_Table_Added")]
+    partial class UserFavorites_Table_Added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

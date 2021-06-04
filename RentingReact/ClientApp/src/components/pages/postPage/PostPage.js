@@ -1,4 +1,5 @@
 ﻿import React, { useState, useEffect } from 'react';
+import { useGlobalUser } from '../../utils/AuthContext';
 import CarouselPostPage from './CarouselPostPage';
 import MapComponent from './MapComponent';
 import PostPageDetails from './PostPageDetails';
@@ -12,9 +13,15 @@ function PostPage(props) {
     const [details, setDetails] = useState([]);
 
 
+    const { user } = useGlobalUser();
+
     const postDetailsAPI = "https://localhost:44364/api/RentPost/";
 
     const [carouselComp, setCarouselComp] = useState();
+
+    const PostFavoritesAPI = "https://localhost:44364/api/UserFavorites/rentPostFavorites/";
+
+    const [postFavorites, setPostFavorites] = useState([]);
 
     useEffect(() => {
 
@@ -33,7 +40,16 @@ function PostPage(props) {
             })
             .catch(err => console.log(err))
 
-           
+        fetch(PostFavoritesAPI + props.match.params.id)
+            .then(response => response.json())
+            .then(data => {
+
+                setPostFavorites(data);
+               
+            })
+            .catch(err => console.log(err))
+
+
         
 
     }, [props]);
@@ -99,7 +115,87 @@ function PostPage(props) {
     };
 
 
+    //<button className="nav-link" id="addFavBtn" data-toggle="tab" role="tab" aria-controls="favorites" aria-selected="false" style={{ marginLeft: "630px" }} onClick={AddPostToFavorite} >Add To Favorites</button>
 
+    const createButton = (type) => {
+        const LiItem = document.getElementById("favoriteButtons");
+
+        const Btn = document.createElement("button");
+        Btn.setAttribute("class", "nav-link");
+        Btn.setAttribute("data-toggle", "tab");
+        Btn.setAttribute("role", "tab");
+        Btn.setAttribute("aria-controls", "favorites");
+        Btn.setAttribute("aria-selected", "true");
+
+        if (type === "remove") {
+            Btn.setAttribute("id", "removeFavBtn");
+            Btn.innerHTML = "Remove From Favorites";
+            Btn.style.marginLeft = "590px";
+            Btn.addEventListener("click", RemoveFromFavorites)
+
+            LiItem.removeChild(document.getElementById("addFavBtn"));
+            LiItem.appendChild(Btn);
+
+        }
+        else if(type==="add") {
+            Btn.setAttribute("id", "addFavBtn");
+            Btn.innerHTML = "Add To Favorites";
+            Btn.style.marginLeft = "630px";
+            Btn.addEventListener("click", AddPostToFavorite);
+            LiItem.removeChild(document.getElementById("removeFavBtn"));
+            LiItem.appendChild(Btn);
+        }
+
+
+
+    }
+
+
+    const AddPostToFavorite = () => {
+
+        const UserFavoritesAPI = "https://localhost:44364/api/UserFavorites";
+
+        let sentData = {
+            UserId: user.Id,
+            RentPostId: details.id
+        }
+        fetch(UserFavoritesAPI, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(sentData)
+            //body: sentData
+        })
+            .then(response => {
+             
+                createButton("remove");
+            })
+
+            .catch(error => {
+                console.log(error)
+            })
+
+
+      
+    }
+
+    const RemoveFromFavorites = () => {
+
+        const DeleteFavoriteAPI = "https://localhost:44364/api/UserFavorites/";
+            
+        fetch(DeleteFavoriteAPI + user.Id + "/post/" + details.id, {
+            method:"DELETE"
+        })
+            .then(response => response.json())
+            .then(data => {
+
+               
+                createButton("add")
+            })
+            .catch(err => console.log(err))
+
+    }
 
     return (
         <>
@@ -123,6 +219,20 @@ function PostPage(props) {
                                             <li className="nav-item">
                                                 <button className="nav-link" id="map-tab" data-toggle="tab" role="tab" aria-controls="connectedServices" aria-selected="false" onClick={fetchLatAndLong} >Show on Map</button>
                                             </li>
+
+                                            {user.Auth? (
+                                                <li className="nav-item" id ="favoriteButtons">
+                                                    { postFavorites.some(elem => elem.userId === user.Id) ? (
+                                                        <button className="nav-link" id="removeFavBtn" data-toggle="tab" role="tab" aria-controls="favorites" aria-selected="false" style={{ marginLeft: "590px" }} onClick={RemoveFromFavorites}>Remove From Favorites</button>
+                                                    ) : (
+                                                            <button className="nav-link" id="addFavBtn" data-toggle="tab" role="tab" aria-controls="favorites" aria-selected="false" style={{ marginLeft: "630px" }} onClick={AddPostToFavorite} >Add To Favorites</button>
+                                                        )}
+                                                   
+                                                </li>
+                                            ) : (<>
+
+                                                </>)}
+
                                         </ul>
                                         {showComponent}
                                     </div>

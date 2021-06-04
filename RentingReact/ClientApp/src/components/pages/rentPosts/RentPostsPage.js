@@ -116,6 +116,10 @@ function RentPostsPage() {
         return value;
     }
 
+
+
+
+
     return (
         <>
             <div className="container">
@@ -123,7 +127,7 @@ function RentPostsPage() {
                     <div className="col-12">
                         <div className="card">
                             <div className="card-body">
-
+                             
 
                                 <section className="booking-block block-intro">
                                     <div className="row">

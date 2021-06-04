@@ -1,4 +1,5 @@
 ﻿import React, { useEffect, useState } from 'react';
+import UserFavoritePosts from './UserFavoritePosts';
 import UserPosts from './UserPosts';
 import UserProfileData from './UserProfileData';
 
@@ -54,6 +55,21 @@ function ProfileBodyHeader(props) {
 
     };
 
+    const showUserFavoritePosts = () => {
+        makeButtonsSameClass();
+        const showPostsBtn = document.getElementById("favoritePosts");
+
+        showPostsBtn.setAttribute("class", "nav-link active");
+
+        const userFavPostsComponent = (
+            <UserFavoritePosts id={props.userData.id} ></UserFavoritePosts>
+        );
+
+        setChoosenComponent(userFavPostsComponent);
+
+
+    }
+
     return (
         <>
 
@@ -66,6 +82,9 @@ function ProfileBodyHeader(props) {
                         </li>
                         <li className="nav-item">
                             <button className="nav-link" id="posts-tab" data-toggle="tab" role="tab" aria-controls="connectedServices" aria-selected="false" onClick={showUserPosts}>User Posts</button>
+                        </li>
+                        <li className="nav-item">
+                            <button className="nav-link" id="favoritePosts" data-toggle="tab" role="tab" aria-controls="favorites" aria-selected="false" onClick={showUserFavoritePosts} >Favorite Posts</button>
                         </li>
                     </ul>
                     {choosenComponent}

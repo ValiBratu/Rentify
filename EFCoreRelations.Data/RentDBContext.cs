@@ -21,6 +21,7 @@ namespace EFCoreRelations.Data
 
         public DbSet<UserPhoto> UserPhotos { get; set; }
         
+        public DbSet<UserFavorite> UserFavorites { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
