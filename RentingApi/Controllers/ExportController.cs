@@ -14,7 +14,7 @@ using iTextSharp.text.pdf.draw;
 
 namespace RentingApi.Controllers
 {
-    //[ApiExplorerSettings(IgnoreApi = true)]
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("api/[controller]")]
     [ApiController]
     public class ExportController : ControllerBase
@@ -51,7 +51,7 @@ namespace RentingApi.Controllers
                     document.Add(new Paragraph("Description: " + post.Description));
                     document.Add(new Paragraph("City: " + post.City));
                     document.Add(new Paragraph("Location: " + post.Location));
-                    document.Add(new Paragraph("Price: " + post.Price.ToString()));
+                    document.Add(new Paragraph("Price: " + post.Price.ToString()+"$"));
                     document.Add(new Phrase("Landlord Details", FontFactory.GetFont("Times New Roman", 16, Font.BOLD)));
                     document.Add(new Paragraph("UserName: " + post.UserName));
                     document.Add(new Paragraph("Email: " + post.Email));

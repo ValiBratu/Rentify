@@ -9,8 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace RentingApi.Controllers
-{ 
-    //[ApiExplorerSettings(IgnoreApi = true)]
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("api/[controller]")]
     [ApiController]
     public class CitiesController : ControllerBase

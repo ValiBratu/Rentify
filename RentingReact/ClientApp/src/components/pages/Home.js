@@ -10,9 +10,9 @@ function Home() {
     //style = {{ height: "40px", marginBottom: "15px" }
 
 
+
     return (
         <>  <div className="container" >
-
             <div className="jumbotron" style={{ backgroundColor:"#d5dfe7" }} >
                
                 <h1 className="display-3">Welcome to Rentify!</h1>
