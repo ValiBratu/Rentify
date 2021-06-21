@@ -15,7 +15,7 @@ using SendGrid.Helpers.Mail;
 
 namespace RentingApi.Controllers
 {
-    //[ApiExplorerSettings(IgnoreApi = true)]
+    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("api/[controller]")]
     [ApiController]
     public class EmailsController : ControllerBase
@@ -29,37 +29,59 @@ namespace RentingApi.Controllers
         }
 
         
-        [HttpGet]
-        public async Task<SendGrid.Response> SendEmailTest()
+        
+        // this will send an email to all the users in the database except de user who made the rent post
+        // because my sendgrid plan allows to send only 100 emails/day it's better to use the 'SendEmailForTest' method when testing
+        [HttpGet("{id}")]
+        public  void SendEmailWhenPostAdded(string id)
         {
 
-            var apiKey = Environment.GetEnvironmentVariable("SendGridKey");
-            var client = new SendGridClient(apiKey);
+            var users = _context.Users.ToList();
 
-            var from = new EmailAddress("vali.bratu7@gmail.com","Rentify");
-            var to = new EmailAddress("vali.bratu7@gmail.com", "Client");
+            foreach(var user in users)
+            {
+                if (user.Id != id)
+                {
+                    SendEmail(user.Email, user.UserName);
+                }
+            }
 
-            var subject = "New Renting Opportunities!";
-            var textContent = "Fresh posts were added.";
-
-            var htmlContent = "<strong>New renting posts were added. We think you might be intersted in </strong>" +
-                "<br></br>" +
-                "<p>Check out the new posts: </p><a href=\"https://localhost:44316/posts\">here</a>";
-
-            var msg = MailHelper.CreateSingleEmail(
-                from,
-                to,
-                subject,
-                textContent,
-                htmlContent
-                );
-
-            var response = await client.SendEmailAsync(msg);
-
-            return response;
 
         }
 
 
+        [HttpGet]
+        public void SendEmailForTest()
+        {
+            SendEmail("vali.bratu77@gmail.com", "ValiFBratu");
+        }
+
+      
+        public async  void SendEmail(string Email,string UserName)
+        {
+
+            
+
+            var apiKey = Environment.GetEnvironmentVariable("SendGridKey");
+            var client = new SendGridClient(apiKey);
+            var sendGridMessage = new SendGridMessage();
+            sendGridMessage.SetFrom("vali.bratu7@gmail.com", "Rentify");
+            sendGridMessage.SetTemplateId("d-5aca455713e643d08a01b013e124ea49");
+
+
+            sendGridMessage.AddTo(Email, UserName);
+            
+             sendGridMessage.SetTemplateData(new 
+            {
+                first_name = UserName
+                
+            });
+
+            await client.SendEmailAsync(sendGridMessage);
+            
+        }
+
     }
-}
+
+    }
+

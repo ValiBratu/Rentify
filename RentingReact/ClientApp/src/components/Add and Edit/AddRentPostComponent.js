@@ -81,8 +81,9 @@ function AddRentPostComponent(props) {
             .then(response => {
                 console.log(response);
                 validateStatus(response.status);
-
+       
             })
+            
 
             .catch(err => console.log(err))
 
@@ -98,10 +99,23 @@ function AddRentPostComponent(props) {
         return true;
     }
 
+    const sendNotificationToUsers=() => {
+
+        const notificationAPI = "https://localhost:44364/api/Emails/";
+
+        fetch(notificationAPI)
+            .then(response => console.log(response))
+
+            .catch(err=>console.log(err))
+
+    }
+
     const validateStatus = (status) => {
 
         if (status === 201) {
-           
+
+            sendNotificationToUsers()
+
             swal2
                 .fire({
                     title: "Great!",
@@ -112,6 +126,7 @@ function AddRentPostComponent(props) {
                     history.push("/");
                     history.push("/posts");
                 });
+            
             return;
         }
        
