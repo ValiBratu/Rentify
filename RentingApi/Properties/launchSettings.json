@@ -14,7 +14,7 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "SendGridKey": "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",
+        "SendGridKey": "",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
