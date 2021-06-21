@@ -17,7 +17,7 @@ function PostPageDetails(props) {
     useEffect(() => {
 
         setDetails(props.data);
-
+       
 
 
     }, [props]);
@@ -45,6 +45,15 @@ function PostPageDetails(props) {
                         </div>
                         <div className="col-md-8 col-6">
                             {details.description}
+                        </div>
+                    </div>
+                    <hr />
+                    <div className="row">
+                        <div className="col-sm-3 col-md-2 col-5">
+                            <label style={{ fontWeight: 'bold' }}>Rooms</label>
+                        </div>
+                        <div className="col-md-8 col-6">
+                            {details.rooms}
                         </div>
                     </div>
                     <hr />

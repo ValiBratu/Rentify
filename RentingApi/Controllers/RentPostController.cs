@@ -62,6 +62,7 @@ namespace RentingApi.Controllers
                 currentPost.Location = rentPost.Location;
                 currentPost.Price = rentPost.Price;
                 currentPost.CityId = rentPost.CityId;
+                currentPost.Rooms = rentPost.Rooms;
 
 
                 await _context.SaveChangesAsync();
@@ -142,7 +143,8 @@ namespace RentingApi.Controllers
                 UserId = user.Id,
                 UserName = user.UserName,
                 City = cities.Name,
-                CityId = cities.Id
+                CityId = cities.Id,
+                Rooms = rentPost.Rooms
             };
             return details;
 

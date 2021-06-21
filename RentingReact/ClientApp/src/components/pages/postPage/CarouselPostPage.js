@@ -57,26 +57,32 @@ function CarouselPostPage(props) {
 
             </div>
             <br></br>
-            <div className="row" style={{ width: "1065px", height:"450px" }}>
+            {photos.length != 0 ? (
+                <div className="row" style={{ width: "1065px", height: "450px" }}>
 
-                <Carousel>
+                    <Carousel>
 
-                    {photos.map((photo, i) => (
+                        {photos.map((photo, i) => (
 
-                    <Carousel.Item style={carouselItem} key={ i}>
-                        <img style={carouselItem}
-                            className="d-block w-100"
-                            src={"data:image/jpeg;base64," + photo.photo}
-                           alt="Second slide"
-                        />
+                            <Carousel.Item style={carouselItem} key={i}>
+                                <img style={carouselItem}
+                                    className="d-block w-100"
+                                    src={"data:image/jpeg;base64," + photo.photo}
+                                    alt="Second slide"
+                                />
 
-                    </Carousel.Item>
+                            </Carousel.Item>
 
-                    ))}
+                        ))}
 
-                </Carousel>
+                    </Carousel>
 
-            </div>
+                </div>
+
+            ) : (
+                    <></>
+                    )}
+           
         </>
     );
 

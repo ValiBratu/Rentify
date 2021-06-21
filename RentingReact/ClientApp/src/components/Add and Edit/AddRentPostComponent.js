@@ -36,8 +36,10 @@ function AddRentPostComponent(props) {
         const description = document.getElementById("description").value;
         const location = document.getElementById("location").value;
         const price = document.getElementById("price").value;
+        const rooms = document.getElementById("rooms").value;
 
-        if (!verifyValues(title, description, location, price)) {
+
+        if (!verifyValues(title, description, location, price,rooms)) {
             return;
         }
 
@@ -50,11 +52,11 @@ function AddRentPostComponent(props) {
         );
         setLoading(load);
 
-        callAPI(title, description, location, price);
+        callAPI(title, description, location, price,rooms);
 
     };
 
-    const callAPI = (title,desc,loc,price) => {
+    const callAPI = (title,desc,loc,price,rooms) => {
 
         const rentPostAPI = "https://localhost:44364/api/RentPost";
 
@@ -64,7 +66,8 @@ function AddRentPostComponent(props) {
             Location: loc,
             Price: price,
             UserId: user.Id,
-            CityId: cityId
+            CityId: cityId,
+            Rooms:rooms
 
         };
 
@@ -89,9 +92,9 @@ function AddRentPostComponent(props) {
 
     }
 
-    const verifyValues = (title,desc,loc,price) => {
+    const verifyValues = (title,desc,loc,price,rooms) => {
         const warning = document.getElementById("warning");
-        if (title === "" || desc === "" || loc === "" || price === "" || cityId === 0) {
+        if (title === "" || desc === "" || loc === "" || price === "" || cityId === 0 || rooms==="") {
             warning.textContent = "All fields must be completed!";
             return false;
         }
@@ -114,7 +117,7 @@ function AddRentPostComponent(props) {
 
         if (status === 201) {
 
-            sendNotificationToUsers()
+            //sendNotificationToUsers()
 
             swal2
                 .fire({
@@ -167,6 +170,12 @@ function AddRentPostComponent(props) {
                             <div className="form-group">
                                 <label>Description</label>
                                 <input type="text" className="form-control" placeholder="Description" name="description" id="description" />
+                            </div>
+
+                            <div className="form-group">
+                                <label>Number of Rooms</label>
+                                <input className="form-control" type="number" name="rooms" id="rooms" placeholder="Rooms" />
+
                             </div>
 
 

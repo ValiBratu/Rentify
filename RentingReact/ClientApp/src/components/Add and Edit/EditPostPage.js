@@ -53,7 +53,7 @@ function EditPostPage(props) {
         const description = document.getElementById("description").value;
         const location = document.getElementById("location").value;
         const price = document.getElementById("price").value;
-
+        const rooms = document.getElementById("rooms").value;
 
         const load = (
             <>
@@ -64,11 +64,11 @@ function EditPostPage(props) {
         );
         setLoading(load);
 
-        callAPI(title, description, location, price);
+        callAPI(title, description, location, price,rooms);
 
     };
 
-    const callAPI = (title, desc, loc, price) => {
+    const callAPI = (title, desc, loc, price,rooms) => {
 
         const rentPostAPI = "https://localhost:44364/api/RentPost/" + props.data.id;
    
@@ -78,7 +78,8 @@ function EditPostPage(props) {
             Location: loc,
             Price: price,
             CityId: city,
-            UserId:props.data.userId
+            UserId: props.data.userId,
+            Rooms:rooms
 
         };
 
@@ -155,6 +156,12 @@ function EditPostPage(props) {
                             <div className="form-group">
                                 <label>Description</label>
                                 <input type="text" className="form-control" placeholder="Description" name="description" id="description" defaultValue={props.data.description} />
+                            </div>
+
+                            <div className="form-group">
+                                <label>Number of Rooms</label>
+                                <input className="form-control" type="number" name="rooms" id="rooms" placeholder="Rooms" defaultValue={props.data.rooms} />
+
                             </div>
 
 

@@ -24,6 +24,7 @@ namespace EFCoreRelations.Data.DTOs
 
         public string Phone { get; set; }
 
+        public int Rooms { get; set; }
         public string Location { get; set; }
         
 

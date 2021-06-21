@@ -77,7 +77,8 @@ namespace EFCoreRelations.Data
                       Description= "Struck by field hockey stick",
                       Location= "8600 Macpherson Way",
                       CityId= 2,
-                      Price= 389.35m
+                      Price= 389.35m,
+                      Rooms=3
                     },
 
                 new RentPost{
@@ -86,7 +87,8 @@ namespace EFCoreRelations.Data
                     Description= "Scleritis with corneal involvement, unspecified eye",
                     Location= "5135 Knutson Lane",
                     CityId= 2,
-                    Price= 651.04m
+                    Price= 651.04m,
+                      Rooms=2
                     },
 
                   new RentPost{
@@ -95,7 +97,8 @@ namespace EFCoreRelations.Data
                     Description= "Other secondary chronic gout, wrist",
                     Location= "69 Bowman Center",
                     CityId= 1,
-                    Price= 955.16m
+                    Price= 955.16m,
+                      Rooms=4
                     },
 
                   new RentPost{
@@ -104,7 +107,8 @@ namespace EFCoreRelations.Data
                     Description= "Poisoning by other hormones and synthetic substitutes, undetermined, initial encounter",
                     Location= "398 Warner Plaza",
                     CityId= 1,
-                    Price= 444.68m
+                    Price= 444.68m,
+                      Rooms=2
                     }
 
                 };

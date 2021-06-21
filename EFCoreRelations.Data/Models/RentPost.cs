@@ -26,6 +26,9 @@ namespace EFCoreRelations.Data.Models
         public string Description { get; set; }
 
         [Required]
+        public int Rooms { get; set; }
+
+        [Required]
         public string Location { get; set; }
 
         [Required]
