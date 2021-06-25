@@ -9,6 +9,8 @@ import RentPostCards from './RentPostCards';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 
+import postNotFound from '../../../images/PostsNotFound.png';
+
 function RentPostsPage() {
 
     const PostsAPI = "https://localhost:44364/api/RentPost/Photos";
@@ -28,6 +30,8 @@ function RentPostsPage() {
 
     const [cities, setCities] =useState([]);
 
+    const [postsByPrice, setPostsByPrice] = useState([]);
+
     useEffect(() => {
 
         fetch(PostsAPI)
@@ -37,6 +41,7 @@ function RentPostsPage() {
                 setPosts(data);
                 setAllPosts(data);
                 setLocationPosts(data);
+                setPostsByPrice(data);
             })
             .catch(err => console.log(err))
 
@@ -54,6 +59,8 @@ function RentPostsPage() {
             .catch(err => console.log(err))
     },[]);
 
+
+
     
 
 
@@ -61,12 +68,20 @@ function RentPostsPage() {
 
         const postsByCityAPI = "https://localhost:44364/api/RentPost/city/";
 
+        const searchValue = document.getElementById("searchLocation");
+
+        const roomSearch = document.getElementById("roomSearch");
+        searchValue.value = "";
+        roomSearch.value = "";
+
         fetch(postsByCityAPI + id)
             .then(response => response.json())
             .then(data => {
                 setPosts(data);
                 setAllPosts(data);
                 setLocationPosts(data);
+                setPostsByPrice(data);
+                setValue([0, 1000]);
             })
             .catch(err=>console.log(err))
 
@@ -86,9 +101,13 @@ function RentPostsPage() {
 
         const searchValue = document.getElementById("searchLocation").value;
 
+        const roomSearch = document.getElementById("roomSearch");
+        roomSearch.value = "";
+
         if (searchValue === "") {
             setPosts(allPosts);
             setLocationPosts(allPosts);
+            setValue([0, 1000]);
             return;
         }
 
@@ -96,15 +115,36 @@ function RentPostsPage() {
 
         setLocationPosts(filteredPosts);
         setPosts(filteredPosts);
+        setPostsByPrice(filteredPosts);
         setValue([0, 1000]);
     };
+
+
+
+    const filterByRooms = () => {
+        const numberOfRooms = document.getElementById("roomSearch").value;
+
+        if (numberOfRooms === 0 || numberOfRooms === "") {
+            setPosts(locationPosts);
+            
+            setValue([0, 1000]);
+            return;
+        }
+        
+        const postsByRoomsNumber = locationPosts.filter(post => post.rooms == numberOfRooms);
+        setPosts(postsByRoomsNumber);
+        setPostsByPrice(postsByRoomsNumber);
+    }
+
+
+
 
     const [value, setValue] = React.useState([0, 1000]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
 
-        const filteredPosts = locationPosts.filter(post => post.price >= newValue[0] && post.price <= newValue[1]);
+        const filteredPosts = postsByPrice.filter(post => post.price >= newValue[0] && post.price <= newValue[1]);
        
         setPosts(filteredPosts);
 
@@ -113,9 +153,10 @@ function RentPostsPage() {
   
 
     function valuetext(value) {
+ 
         return value;
-    }
 
+    }
 
 
 
@@ -130,58 +171,75 @@ function RentPostsPage() {
                              
 
                                 <section className="booking-block block-intro">
-                                    <div className="row">
+
+                                    <div className="row" style={{ marginBottom: "15px", marginLeft:"50px" }}>
+                                     
+                                        {user.Auth ? (
+                                            <AddRentPostComponent cities={cities}></AddRentPostComponent>
+                                        ) : (<></>)
+                                        }
+                                    </div>
+                                    <hr />
+                                    <div className="row" style={{ marginLeft: "50px" }}>
                                         <div style={{ width: "250px" }} >
                                             <Select id="selectCityBar" options={CitiesList.selectOptions} onChange={handleCityChange} />
                                         </div>
                                         <br></br>
 
-                                        <div className="input-group mb-3" style={{ width: "300px", marginLeft:"15px" }}>
+                                        <div className="input-group mb-3" style={{ width: "300px", marginLeft: "15px" }}>
                                             <input type="text" className="form-control" id="searchLocation" placeholder="Search by Location" aria-label="SearchBar" aria-describedby="basic-addon2" />
                                             <div className="input-group-append">
                                                 <button className="btn btn-outline-secondary" type="button" onClick={searchByLocation}>Search</button>
                                             </div>
                                         </div>
 
-
-                                        <div style={{ float: "right", marginLeft: "350px" }} >
-                                        {user.Auth ? (
-                                            <AddRentPostComponent cities={cities}></AddRentPostComponent>
-                                        ) : (<></>)}
+                                        <div className="input-group mb-3" style={{ width: "300px", marginLeft: "15px" }}>
+                                            <input type="number" min="0"  className="form-control" id="roomSearch" placeholder="Number of Rooms" aria-label="SearchRooms" aria-describedby="basic-addon2" />
+                                            <div className="input-group-append">
+                                                <button className="btn btn-outline-secondary" type="button" onClick={filterByRooms} >Search</button>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div className="row">
-                                        <div style={{ width:"250px" }}>
+                                   
+                                    <div style={{ width: "250px", marginLeft:"50px" }}>
                                         <div className="panel panel-default">
                                             <div className="panel-body">
                                                 <Typography id="range-slider" gutterBottom>
                                                     Price Range
-                                                    </Typography>
+                                     </Typography>
                                                 <Slider
-                                                        value={value}
-                                                        onChange={handleChange}
-                                                        
-                                                        valueLabelDisplay="auto"
-                                                        aria-labelledby="range-slider"
-                                                        getAriaValueText={valuetext}
-                                                        min={0}
-                                                        max={ 1000}
+                                                    value={value}
+                                                    onChange={handleChange}
+
+                                                    valueLabelDisplay="auto"
+                                                    aria-labelledby="range-slider"
+                                                    getAriaValueText={valuetext}
+                                                    min={0}
+                                                    max={1000}
                                                 />
-                                                </div>
                                             </div>
                                         </div>
-
                                     </div>
-
+                                    <hr />
                                     
 
-                                <br></br>
-                                <div className="container">
+                                    <br></br>
+                                    {posts.length != 0 ? (
+                                        <div className="container">
 
-                                        <RentPostCards posts={posts}></RentPostCards>
+                                            <RentPostCards posts={posts}></RentPostCards>
+
+                                        </div>
+                                    ): (
                                     
+                                    <div className="container">
+
+                                         <img src={postNotFound} alt="notFoundPosts"></img>
+
                                     </div>
+                                    )}
+
                                 </section>
                                
                             </div>

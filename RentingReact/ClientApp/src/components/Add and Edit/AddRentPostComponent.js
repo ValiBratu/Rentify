@@ -147,7 +147,7 @@ function AddRentPostComponent(props) {
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
+            <Button variant="btn btn-success" onClick={handleShow}>
                 Add a new post
             </Button>
            
