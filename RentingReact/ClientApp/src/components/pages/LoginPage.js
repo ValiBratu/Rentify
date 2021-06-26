@@ -88,7 +88,7 @@ function Login() {
             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
 
-        console.log(jsonPayload);
+        
         document.cookie = "name=test";
 
         const loginData = {

@@ -174,7 +174,7 @@ function AddRentPostComponent(props) {
 
                             <div className="form-group">
                                 <label>Number of Rooms</label>
-                                <input className="form-control" type="number" name="rooms" id="rooms" placeholder="Rooms" />
+                                <input className="form-control" min="1" type="number" name="rooms" id="rooms" placeholder="Rooms" />
 
                             </div>
 

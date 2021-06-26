@@ -10,6 +10,9 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 
 import postNotFound from '../../../images/PostsNotFound.png';
+import Loading from '../../utils/Loading';
+
+
 
 function RentPostsPage() {
 
@@ -32,8 +35,10 @@ function RentPostsPage() {
 
     const [postsByPrice, setPostsByPrice] = useState([]);
 
-    useEffect(() => {
+    const [loadingPosts, setLoadingPosts] = useState();
 
+    useEffect(() => {
+        makeLoading();
         fetch(PostsAPI)
             .then(response => response.json())
             .then(data => {
@@ -42,6 +47,7 @@ function RentPostsPage() {
                 setAllPosts(data);
                 setLocationPosts(data);
                 setPostsByPrice(data);
+                makeNotFoundImage();
             })
             .catch(err => console.log(err))
 
@@ -61,8 +67,26 @@ function RentPostsPage() {
 
 
 
-    
+    const makeLoading = () => {
+        const load = (
+            <div style={{marginLeft:"470px"}}>
+                <br></br>
+                <Loading></Loading>
+                <br></br>
+            </div>
+        );
+        setLoadingPosts(load);
+    }
 
+
+    const makeNotFoundImage = () => {
+        const notFoundImg = (
+            <>
+                <img src={postNotFound} alt="notFoundPosts"></img>
+            </>
+        );
+        setLoadingPosts(notFoundImg);
+    }
 
     const fetchPostsByCity = (id) => {
 
@@ -123,8 +147,8 @@ function RentPostsPage() {
 
     const filterByRooms = () => {
         const numberOfRooms = document.getElementById("roomSearch").value;
-
-        if (numberOfRooms === 0 || numberOfRooms === "") {
+       
+        if ( numberOfRooms === "") {
             setPosts(locationPosts);
             
             setValue([0, 1000]);
@@ -163,6 +187,7 @@ function RentPostsPage() {
 
     return (
         <>
+            
             <div className="container">
                 <div className="row">
                     <div className="col-12">
@@ -194,7 +219,7 @@ function RentPostsPage() {
                                         </div>
 
                                         <div className="input-group mb-3" style={{ width: "300px", marginLeft: "15px" }}>
-                                            <input type="number" min="0"  className="form-control" id="roomSearch" placeholder="Number of Rooms" aria-label="SearchRooms" aria-describedby="basic-addon2" />
+                                            <input type="number" min="1"  className="form-control" id="roomSearch" placeholder="Number of Rooms" aria-label="SearchRooms" aria-describedby="basic-addon2" />
                                             <div className="input-group-append">
                                                 <button className="btn btn-outline-secondary" type="button" onClick={filterByRooms} >Search</button>
                                             </div>
@@ -233,11 +258,11 @@ function RentPostsPage() {
                                         </div>
                                     ): (
                                     
-                                    <div className="container">
+                                        <div className="container">
 
-                                         <img src={postNotFound} alt="notFoundPosts"></img>
+                                            {loadingPosts}
 
-                                    </div>
+                                        </div>
                                     )}
 
                                 </section>

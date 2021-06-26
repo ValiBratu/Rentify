@@ -160,7 +160,7 @@ function EditPostPage(props) {
 
                             <div className="form-group">
                                 <label>Number of Rooms</label>
-                                <input className="form-control" type="number" name="rooms" id="rooms" placeholder="Rooms" defaultValue={props.data.rooms} />
+                                <input className="form-control" type="number" min="1" name="rooms" id="rooms" placeholder="Rooms" defaultValue={props.data.rooms} />
 
                             </div>
 
